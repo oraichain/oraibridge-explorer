@@ -1,0 +1,18 @@
+@import "src/styles/utils";
+
+.routerContainer {
+	position: relative;
+	width: 100%;
+	//margin: 0 auto;
+	// padding: var(--heightHeader) 0 0 0;
+	min-height: calc(100vh - var(--heightFooter));
+	min-width: 360px;
+
+	@include media("<large") {
+		padding: 0 15px 1.8rem;
+	}
+
+	@include media("<medium") {
+		padding: 0 10px 10px 10px;
+	}
+}

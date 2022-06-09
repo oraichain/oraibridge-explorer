@@ -1,0 +1,72 @@
+@import "src/styles/utils";
+
+.DetailWrapper {
+	// margin-top: 18px;
+}
+
+.DetailDisplay {
+	// display: grid;
+	// grid-template-columns: 50% 50%;
+	// grid-template-rows: 50% 50%;
+	// grid-row-gap: 5px;
+	// grid-column-gap: 5px;
+	display: flex;
+	justify-content: space-evenly;
+	padding: 0;
+	height: 10em;
+	margin-top: 20px;
+	@include media("<medium") {
+		padding: 0px;
+		justify-content: space-between;
+	}
+
+	.card {
+		text-align: center;
+		padding: 20px 12px;
+		background: var(--common-blockItemBackgroundColor);
+		border-radius: 6px;
+		width: 152px;
+		@include media("<medium") {
+			background-color: var(--common-blockItemBackgroundColor);
+			width: 49%;
+			padding-bottom: 0px;
+			margin-top: 15px;
+		}
+
+		.title {
+			font-weight: normal;
+			font-size: 12px;
+			line-height: 150%;
+			text-align: center;
+			color: var(--common-textColor);
+		}
+
+		.content {
+			font-weight: 500;
+			font-size: 24px;
+			line-height: 150%;
+			color: var(--common-textColor);
+			margin-bottom: 10px;
+			@include media("<small") {
+				font-size: 20px;
+			}
+		}
+
+		.footer {
+			font-weight: normal;
+			font-size: 12px;
+			line-height: 150%;
+			text-align: center;
+			color: var(--dashboard-detailsFooterTextColor);
+			width: 89px;
+			margin: 0 auto;
+		}
+	}
+}
+
+.test {
+	justify-content: space-around;
+	@include media("<medium") {
+		justify-content: space-between;
+	}
+}

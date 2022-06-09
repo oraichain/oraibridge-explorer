@@ -1,0 +1,99 @@
+@import "src/styles/utils";
+
+.GraphDisplay {
+	padding: 16px 30px 30px 30px;
+	width: 100%;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: flex-end;
+	height: 330px;
+
+	@include media("<medium") {
+		padding: 0px;
+		margin-top: 30px;
+		height: unset;
+	}
+
+	.tab-wrapper {
+		@include media("<medium") {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+		}
+
+		.tab-wrapper-name {
+			font-weight: 500;
+			font-size: 18px;
+		}
+
+		.tab-wrapper-btn {
+			width: 188px;
+			height: 30px;
+
+			margin-bottom: 25px;
+			display: flex;
+			flex-flow: row;
+			align-self: flex-end;
+			color: var(--common-buttonTextColor);
+			:nth-child(1) {
+				border-bottom-left-radius: 5px;
+				border-top-left-radius: 5px;
+			}
+
+			:nth-child(2) {
+				border-bottom-right-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+		}
+
+		button {
+			width: 50%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border: 1px solid var(--common-borderColor);
+
+			p {
+				font-family: "Open Sans", serif;
+				font-size: 14px;
+				font-weight: normal;
+				font-stretch: normal;
+				font-style: normal;
+				line-height: 1.36;
+				letter-spacing: normal;
+				text-align: left;
+			}
+
+			&.selected {
+				background: var(--common-activeTabColor);
+
+				p {
+					color: var(--common-activeTabTextColor);
+				}
+			}
+		}
+	}
+
+	.Graph-wrapper {
+		width: 95%;
+		overflow: visible;
+		margin: auto;
+		@include media(">=xxsmall") {
+			width: map_get($breakpoints, xxsmall) - 40px;
+		}
+		@include media(">=xsmall") {
+			width: map_get($breakpoints, xsmall) - 40px;
+		}
+		@include media(">=small") {
+			width: map_get($breakpoints, small) - 60px;
+		}
+		@include media(">=medium") {
+			width: 100%;
+		}
+		@include media("<medium") {
+			width: 100%;
+		}
+	}
+}

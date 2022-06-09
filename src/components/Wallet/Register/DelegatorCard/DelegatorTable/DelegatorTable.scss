@@ -1,0 +1,64 @@
+@import "src/styles/utils";
+.align-left {
+	text-align: left;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.header-cell {
+	color: var(--common-textColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.address-data-cell {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+
+	&-with-owner-badge {
+		justify-content: space-between;
+	}
+
+	.address {
+		color: var(--common-linkColor);
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 150%;
+	}
+
+	.owner-badge {
+		padding: 6px 20px;
+		color: #5f51ff;
+		border: 1px solid #5f51ff;
+		box-sizing: border-box;
+		border-radius: 4px;
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 150%;
+	}
+}
+
+.staked-data-cell,
+.claimable-rewards-data-cell {
+	color: var(--common-textColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 150%;
+}

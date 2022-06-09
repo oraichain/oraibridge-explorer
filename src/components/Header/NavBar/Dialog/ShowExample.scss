@@ -1,0 +1,48 @@
+.show-example {
+	&-button {
+		&-text {
+			font-family: 'IBM Plex Sans';
+			font-size: 16px;
+			color: var(--common-linkColor);
+			cursor: pointer;
+		}
+
+		&-icon {
+			font-family: 'IBM Plex Sans';
+			font-size: 16px;
+			color: var(--common-linkColor);
+			cursor: pointer;
+		}
+	}
+
+	&-menu {
+		:global(.MuiPopover-paper) {
+			margin-top: 35px;
+			margin-left: 35px;
+
+			&:hover {
+				background: var(--common-blockItemBackgroundColor) !important;
+			}
+		}
+	}
+}
+
+.menu-item {
+	&-text {
+		display: inline-block;
+		margin-left: 8px;
+		font-family: 'IBM Plex Sans';
+		font-size: 16px;
+		color: var(--common-textColor);
+		cursor: pointer;
+	}
+
+	&-icon {
+		display: inline-block;
+
+		font-family: 'IBM Plex Sans';
+		font-size: 16px;
+		color: var(--common-textColor);
+		cursor: pointer;
+	}
+}

@@ -1,0 +1,78 @@
+@import "src/styles/utils";
+
+.align-left {
+	text-align: left;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.header-cell {
+	color: var(--common-textColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.skeleton {
+	&-inline-block {
+		display: inline-block;
+	}
+}
+
+.skeleton-data-cell {
+	height: 32px;
+}
+
+.data-cell {
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.color-blue {
+	color: var(--common-linkColor);
+}
+
+.color-black {
+	color: var(--common-textColor);
+}
+
+.ai-icon {
+	display: inline-block;
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+.logo {
+	display: inline-block;
+	margin-right: 8px;
+	vertical-align: middle;
+	border-radius: 50px;
+}
+
+.logo-brand-custom {
+	display: flex;
+	align-items: center;
+}
+
+.logo-custom {
+	border-radius: 50%;
+	border: 1px solid var(--validators-logo-border);
+	padding: 5px;
+	margin-right: 5px;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

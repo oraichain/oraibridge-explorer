@@ -1,0 +1,20 @@
+.required-label span {
+	color: #f44336;
+}
+.error {
+	border: 1px solid red;
+}
+.input-text {
+	width: 100%;
+	border: 1px solid var(--common-borderColor);
+	background: var(--common-containerBackgroundColor);
+	color: var(--common-textColor);
+	box-sizing: border-box;
+	border-radius: 6px;
+	&:focus {
+		outline: none;
+	}
+}
+.text-error {
+	color: red;
+}

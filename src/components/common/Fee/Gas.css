@@ -1,0 +1,24 @@
+.select-gas-custom .input-range {
+	margin-left: 10px;
+}
+
+.select-gas-custom .input-range .input-range__label-container {
+	display: none;
+}
+
+.select-gas-custom .input-range .input-range__slider {
+	/* background: var(--common-modal-modalSliderColor); */
+	border: 1px solid var(--common-modal-commonModalBorderColor);
+}
+
+.select-gas-custom .input-range .input-range__track--active {
+	background: #6657c0;
+}
+
+.select-gas-custom .input-range .input-range__track {
+	background: var(--common-blockItemBackgroundColor);
+}
+
+.ant-input-number-input {
+	color: var(--common-textColor);
+}

@@ -1,0 +1,130 @@
+.address-card {
+	padding: 20px;
+	background: var(--common-containerBackgroundColor);
+	box-shadow: 0px 2px 8px var(--common-boxShadowColor);
+	border-radius: 8px;
+	height: 100%;
+
+	&-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 20px;
+
+		.validator {
+			&-account {
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				align-items: center;
+
+				&-icon {
+					display: inline-block;
+					width: 32px;
+					height: 32px;
+					margin-right: 10px;
+					border-radius: 50%;
+				}
+
+				&-name {
+					color: var(--common-textColor);
+					background: var(--common-containerBackgroundColor);
+					font-family: 'IBM Plex Sans';
+					font-style: normal;
+					font-weight: 500;
+					font-size: 20px;
+					line-height: 150%;
+				}
+				&-images {
+					cursor: pointer;
+				}
+			}
+
+			&-status-active {
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				align-items: center;
+				padding: 6px;
+				background: var(--validators-validatorDetails-binanceStacking-activeLabelColor);
+				border-radius: 4px;
+
+				&-icon {
+					display: inline-block;
+					width: auto;
+					height: 16px;
+					margin-right: 4;
+					color: var(--validators-validatorDetails-binanceStacking-activeLabelTextColor);
+				}
+
+				&-active-text {
+					color: var(--validators-validatorDetails-binanceStacking-activeLabelTextColor);
+					font-family: 'IBM Plex Sans';
+					font-style: normal;
+					font-weight: normal;
+					font-size: 12px;
+					line-height: 150%;
+				}
+			}
+
+			&-status-inactive {
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				align-items: center;
+				padding: 6px;
+				background: var(--validators-validatorDetails-missedBlocksTable-failedColor);
+				border-radius: 4px;
+
+				&-icon {
+					display: inline-block;
+					width: auto;
+					height: 16px;
+					margin-right: 4;
+					color: var(--validators-validatorDetails-binanceStacking-activeLabelTextColor);
+				}
+
+				&-text {
+					color: var(--validators-validatorDetails-binanceStacking-activeLabelTextColor);
+					font-family: 'IBM Plex Sans';
+					font-style: normal;
+					font-weight: normal;
+					font-size: 12px;
+					line-height: 150%;
+				}
+			}
+		}
+	}
+
+	&-body {
+		.address {
+			color: var(--common-textColor);
+			margin-bottom: 15px;
+
+			&-type {
+				background: var(--common-containerBackgroundColor);
+				font-family: 'IBM Plex Sans';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 16px;
+				line-height: 150%;
+			}
+
+			&-value {
+			}
+		}
+	}
+}
+
+.logo-custom {
+	border-radius: 50%;
+	border: 1px solid var(--validators-logo-border);
+	padding: 5px;
+	margin-right: 5px;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

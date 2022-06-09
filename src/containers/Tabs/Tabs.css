@@ -1,0 +1,144 @@
+.dropdown-validators .MuiButtonBase-root {
+	padding: 20px 15px;
+	color: var(--common-textColor);
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 150%;
+	justify-content: flex-start;
+}
+
+.dropdown-validators .MuiList-padding {
+	padding: 0;
+}
+
+.dropdown-validators .MuiPaper-root {
+	min-width: 138px;
+	height: auto;
+	background-color: var(--common-containerBackgroundColor);
+	color: var(--common-textColor);
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 150%;
+	padding: 0;
+}
+
+.dropdown-validators .MuiButtonBase-root:hover {
+	background-color: var(--common-blockItemBackgroundColor);
+}
+
+@media only screen and (max-width: 1280px) {
+	.dropdown-validators {
+		transform: translate(-103%, 98%) !important;
+	}
+}
+
+.dropdown-transactions {
+	z-index: 3;
+}
+
+.dropdown-validators {
+	z-index: 3;
+}
+
+.dropdown-transactions .MuiButtonBase-root {
+	padding: 20px 15px;
+	color: var(--common-textColor);
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 150%;
+	justify-content: flex-start;
+}
+
+.dropdown-transactions .MuiList-padding {
+	padding: 0;
+}
+
+.dropdown-transactions .MuiPaper-root {
+	min-width: 165px;
+	height: auto;
+	background-color: var(--common-containerBackgroundColor);
+	color: var(--common-textColor);
+	margin-left: 27px;
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 150%;
+	padding: 0;
+}
+
+.dropdown-transactions .MuiButtonBase-root:hover {
+	background-color: var(--common-blockItemBackgroundColor);
+}
+
+/* @media only screen and (max-width: 1280px) {
+	.dropdown-transactions {
+		transform: translate(-103%, 197%) !important;
+	}
+} */
+
+@media only screen and (max-width: 1280px) {
+	.dropdown-trans {
+		transform: translate(-103%, 333%) !important;
+	}
+	.dropdown-ibc {
+		transform: translate(-103%, 430%) !important;
+	}
+	.dropdown-validators {
+		transform: translate(-103%, 185%) !important;
+	}
+	.dropdown-proposals {
+		transform: translate(-103%, 255%) !important;
+	}
+	.dropdown-smart {
+		transform: translate(-103%, 530%) !important;
+	}
+	.dropdown-sub {
+		transform: translate(-103%, 233%) !important;
+	}
+}
+
+.dropdown-proposals .MuiButtonBase-root {
+	padding: 20px 15px;
+	color: var(--common-textColor);
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 150%;
+	justify-content: flex-start;
+}
+
+.dropdown-proposals .MuiList-padding {
+	padding: 0;
+}
+
+.dropdown-proposals .MuiPaper-root {
+	min-width: 165px;
+	height: auto;
+	background-color: var(--common-containerBackgroundColor);
+	color: var(--common-textColor);
+	margin-left: 27px;
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 150%;
+	padding: 0;
+}
+
+.dropdown-proposals .MuiButtonBase-root:hover {
+	background-color: var(--common-blockItemBackgroundColor);
+}
+
+/* @media only screen and (max-width: 1280px) {
+	.dropdown-proposals {
+		transform: translate(-103%, 197%) !important;
+	}
+} */

@@ -1,0 +1,28 @@
+.header-mobile {
+	background-color: var(--common-containerBackgroundColor);
+	margin-left: -14px;
+	margin-right: -14px;
+	margin-bottom: 20px;
+	height: 60px;
+	display: flex;
+	justify-content: space-between;
+	box-shadow: 0px 4px 12px var(--common-boxShadowColor);
+	.title {
+		font-weight: 500;
+		font-size: 20px;
+		padding-left: 30px;
+		color: var(--common-textColor);
+		display: flex;
+		align-items: center;
+		&-icon {
+			color: var(--common-textColor);
+			display: block;
+			margin-right: 10px;
+		}
+	}
+	.page-icon {
+		padding-right: 30px;
+		display: flex;
+		align-items: center;
+	}
+}

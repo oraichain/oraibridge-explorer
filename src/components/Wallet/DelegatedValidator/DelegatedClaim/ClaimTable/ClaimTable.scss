@@ -1,0 +1,120 @@
+@import "src/styles/utils";
+.align-left {
+	text-align: left;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.header-cell {
+	color: var(--common-headerTextColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.skeleton-data-cell {
+	box-sizing: border-box;
+	height: 32px;
+}
+
+.validator-data-cell {
+	.validator {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+
+		&-icon {
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			margin-right: 10px;
+			border-radius: 50px;
+		}
+
+		&-name {
+			color: var(--common-linkColor);
+			font-family: 'IBM Plex Sans';
+			font-style: normal;
+			font-weight: normal;
+			font-size: 14px;
+			line-height: 150%;
+		}
+	}
+}
+
+.staked-data-cell,
+.claimable-rewards-data-cell {
+	color: var(--common-textColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.claim-data-cell {
+	.button {
+		padding: 8px;
+		color: var(--common-linkColor);
+		border: 1px solid var(--common-borderColor);
+		box-sizing: border-box;
+		border-radius: 4px;
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 150%;
+		cursor: pointer;
+
+		&-icon {
+			position: relative;
+			top: 2px;
+			display: inline-block;
+			margin-left: 8px;
+			width: auto;
+			height: 16px;
+		}
+	}
+}
+
+.claim-btn {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	.button {
+		display: flex;
+	}
+}
+
+.logo-custom {
+	border-radius: 50%;
+	border: 1px solid var(--validators-logo-border);
+	padding: 5px;
+	margin-right: 5px;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.total-item {
+	&-value {
+		color: var(--common-placeholderTextColor);
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 14px;
+		line-height: 150%;
+		letter-spacing: 0.4px;
+	}
+}

@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "oraichain-mainnet"
+  },
+  "targets": {}
+}

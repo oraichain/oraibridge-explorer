@@ -1,0 +1,38 @@
+@import "src/styles/utils";
+
+.BlocksDisplay-table {
+	overflow-x: auto;
+	overflow-y: hidden;
+	min-width: 310px;
+	background: #f9f9f9;
+	border: 1px solid #e7e7e7;
+	margin-top: 20px;
+	@include media("<medium") {
+		background-color: #f5f5f5;
+	}
+
+	.tableHeaderCell {
+		@include tableHeaderCellWidth300;
+		@include tableHeaderPadding;
+		color: #1b57f0;
+		font-weight: bold;
+		font-size: 14px;
+		line-height: 150%;
+		background: #e8eeff;
+	}
+
+	.heightWidth {
+		min-width: 50px;
+	}
+
+	.proposer {
+		min-width: 70px;
+		@include media("<dash_table_limit") {
+			display: none;
+		}
+	}
+
+	.timeWidth {
+		min-width: 60px;
+	}
+}

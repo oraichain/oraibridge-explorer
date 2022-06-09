@@ -1,0 +1,258 @@
+.details-card {
+	padding: 20px;
+	background: var(--common-containerBackgroundColor);
+	box-shadow: 0px 2px 8px var(--common-boxShadowColor);
+	border-radius: 8px;
+	height: 100%;
+
+	.table-desktop {
+		width: 100%;
+		tr {
+			td {
+				padding-bottom: 15px;
+			}
+			.copy {
+				cursor: pointer;
+				display: inline-flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+			}
+		}
+	}
+
+	.table-mobile {
+		width: 100%;
+		tr {
+			td:nth-child(1) {
+				text-align: left;
+			}
+			td:nth-child(2) {
+				text-align: right;
+			}
+
+			&:nth-child(1),
+			&:nth-child(3) {
+				td {
+					padding-bottom: 10px;
+				}
+			}
+
+			&:nth-child(2),
+			&:nth-child(4),
+			&:nth-child(5),
+			&:nth-child(6),
+			&:nth-child(7) {
+				td {
+					padding-bottom: 15px;
+				}
+			}
+		}
+	}
+
+	.proposal-id {
+		display: inline-block;
+		margin-right: 16px;
+		color: var(--common-linkColor);
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 150%;
+
+		@media screen and (min-width: 1280px) {
+			font-size: 18px;
+		}
+	}
+
+	.status {
+		display: inline-flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+		height: 28px;
+		padding-left: 8px;
+		padding-right: 8px;
+		border-radius: 4px;
+
+		&-icon {
+			display: inline-block;
+			margin-right: 1px;
+			&-passed {
+				color: var(--proposals-topProposalCard-statusPassedTextColor);
+			}
+
+			&-rejected {
+				color: var(--proposals-topProposalCard-statusRejectedTextColor);
+			}
+		}
+
+		&-text {
+			display: inline-block;
+
+			font-family: 'IBM Plex Sans';
+			font-style: normal;
+			font-weight: normal;
+			font-size: 11px;
+		}
+
+		&-passed {
+			border: 1px solid var(--proposals-topProposalCard-statusPassedBorderColor);
+			background-color: var(--proposals-topProposalCard-statusPassedBackgroundColor);
+			.status-text {
+				color: var(--proposals-topProposalCard-statusPassedTextColor);
+			}
+		}
+
+		&-rejected {
+			border: 1px solid var(--proposals-topProposalCard-statusRejectedBorderColor);
+			background-color: var(--proposals-topProposalCard-statusRejectedBackgroundColor);
+			.status-text {
+				color: var(--proposals-topProposalCard-statusRejectedTextColor);
+			}
+		}
+	}
+
+	.proposal-title {
+		color: var(--common-textColor);
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 150%;
+
+		@media screen and (min-width: 1280px) {
+			font-size: 16px;
+		}
+	}
+
+	.item-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		@media screen and (min-width: 1280px) {
+			justify-content: flex-start;
+		}
+	}
+
+	.item-title {
+		color: var(--common-textColor);
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 150%;
+
+		@media screen and (min-width: 1280px) {
+			font-size: 14px;
+		}
+	}
+
+	.item-text {
+		color: var(--common-textColor);
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 150%;
+		word-break: break-all;
+	}
+
+	.item-link {
+		color: var(--common-linkColor);
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 150%;
+		word-break: break-all;
+
+		.copy-icon {
+			margin-left: 15px;
+			display: inline-flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+		}
+	}
+
+	.amount {
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: normal;
+		font-size: 16px;
+		line-height: 150%;
+
+		&-value {
+			display: inline-block;
+			margin-right: 4px;
+			color: var(--common-textColor);
+		}
+
+		&-denom {
+			display: inline-block;
+			color: var(--common-oraiDenomTextColor);
+		}
+	}
+
+	.description {
+		@media screen and (min-width: 1280px) {
+			height: 100%;
+			padding: 15px;
+			background: var(--common-blockItemBackgroundColor);
+			border-radius: 6px;
+		}
+
+		&-header {
+			color: var(--common-textColor);
+			font-family: 'IBM Plex Sans';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 150%;
+
+			@media screen and (min-width: 1280px) {
+				margin-bottom: 5px;
+				font-size: 14px;
+			}
+		}
+
+		&-body {
+			min-height: 50px;
+			max-height: 500px;
+			overflow: auto;
+			color: var(--common-textColor);
+			font-family: 'IBM Plex Sans';
+			font-style: normal;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 150%;
+
+			@media screen and (min-width: 1280px) {
+				font-size: 14px;
+			}
+
+			.show-more {
+				margin-bottom: 5px;
+				color: var(--common-linkColor);
+				font-family: 'IBM Plex Sans';
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 150%;
+
+				@media screen and (min-width: 1280px) {
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}
+
+.skeleton {
+	display: inline-block;
+}

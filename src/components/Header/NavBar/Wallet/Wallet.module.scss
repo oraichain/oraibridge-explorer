@@ -1,0 +1,235 @@
+@import "src/styles/utils";
+
+.nav-link {
+	display: inline-block;
+	padding: 32px 15px;
+	color: var(--common-activeTabTextColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 26px;
+	cursor: pointer;
+
+	@include media(">=large") {
+		color: var(--common-activeTabTextColor);
+		font-size: 18px;
+	}
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	color: var(--common-textColor);
+	font-size: 1rem;
+
+	&-toggle {
+		display: inline-flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		height: 70px;
+		padding-left: 16px;
+		cursor: pointer;
+
+		@include media("<large") {
+			padding-left: 0px;
+		}
+
+		&-text {
+			margin-right: 8px;
+			color: #ffffff;
+		}
+
+		&-icon {
+			color: #ffffff;
+		}
+	}
+
+	.dropdown-content {
+		position: fixed;
+		width: 100vw !important;
+		max-height: 0px;
+		right: 0;
+		bottom: 0;
+		width: calc(100vw - 2 * 15px);
+		padding-left: 16px;
+		padding-right: 16px;
+		background-color: var(--common-containerBackgroundColor);
+		box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		z-index: 1;
+		border: 1px solid var(--common-borderColor);
+		border-radius: 8px;
+		transition: max-height 0.5s;
+
+		@include media(">=large") {
+			position: absolute;
+			top: 62px;
+			left: initial;
+			bottom: initial;
+			right: 0px;
+			width: 500px !important;
+		}
+
+		&-active {
+			max-height: 500px;
+		}
+	}
+}
+
+.wallet {
+	padding-top: 20px;
+
+	&-name {
+		margin-bottom: 15px;
+		color: var(--common-textColor);
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 150%;
+	}
+
+	&-address {
+		margin-bottom: 10px;
+
+		&-title {
+			&-text {
+				display: inline-block;
+				margin-right: 8px;
+				color: var(--common-textColor);
+				font-family: 'IBM Plex Sans';
+				font-style: normal;
+				font-weight: 500;
+				font-size: 18px;
+				line-height: 150%;
+			}
+
+			&-icon {
+				cursor: pointer;
+				color: var(--common-linkColor);
+			}
+		}
+
+		&-value {
+			color: var(--common-textColor);
+			font-family: 'IBM Plex Sans';
+			font-style: normal;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 150%;
+			word-break: break-all;
+
+			@include media(">=large") {
+				word-break: keep-all;
+			}
+		}
+	}
+
+	&-balance {
+		margin-bottom: 10px;
+
+		&-title {
+			display: inline-block;
+			margin-right: 8px;
+			color: var(--common-textColor);
+			font-family: 'IBM Plex Sans';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 18px;
+			line-height: 150%;
+		}
+
+		&-value {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			color: var(--common-textColor);
+			font-family: 'IBM Plex Sans';
+			font-style: normal;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 150%;
+		}
+	}
+
+	&-button {
+		display: inline-flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		cursor: pointer;
+
+		&-icon {
+			color: var(--common-linkColor);
+			width: auto;
+			height: 16px;
+		}
+
+		&-text {
+			color: var(--common-linkColor);
+			display: inline-block;
+			margin-left: 8px;
+			font-family: 'IBM Plex Sans';
+			font-style: normal;
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 150%;
+		}
+	}
+}
+
+.button-group {
+}
+
+.button {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	border-radius: 6px;
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	height: 40px;
+	text-align: center;
+	cursor: pointer;
+
+	&-fill {
+		background: var(--common-modal-buttonSubmitBackgroundColor);
+		color: #ffffff;
+	}
+
+	&-outline {
+		margin-bottom: 20px;
+		color: var(--common-modal-modalCommonTextColor);
+		background: var(--common-modal-buttonCancelBackgroundColor);
+		border: 1px solid var(--common-modal-modalCommonBorderColor);
+	}
+}
+
+.amount {
+	display: inline-block;
+	margin-right: 4px;
+}
+
+.denom {
+	display: inline-block;
+	margin-right: 4px;
+}
+
+.price {
+	display: inline-block;
+	margin-right: 4px;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}

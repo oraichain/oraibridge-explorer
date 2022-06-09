@@ -1,0 +1,62 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	font-family: sans-serif;
+	cursor: pointer;
+	margin-top: 20px;
+
+	& > p {
+		font-size: 1rem;
+	}
+
+	& > em {
+		font-size: 0.8rem;
+	}
+}
+
+.dropzone {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 32px 91px;
+	border-width: 2px;
+	border-radius: 2px;
+	border-color: var(--common-borderColor);
+	border-style: dashed;
+	background-color: var(--common-blockItemBackgroundColor);
+	color: var(--common-textColor);
+	outline: none;
+	transition: border 0.24s ease-in-out;
+
+	&:focus {
+		border-color: #2196f3;
+	}
+
+	&.disabled {
+		opacity: 0.6;
+	}
+}
+
+.drag {
+	text-align: center;
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	.browse {
+		margin-top: 5px;
+		color: #39bbf3;
+	}
+}
+
+.note {
+	text-align: center;
+	font-size: 12px;
+	line-height: 150%;
+	color: #979797;
+}
+
+.error {
+	color: red;
+}

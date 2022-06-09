@@ -1,0 +1,59 @@
+@import "src/styles/utils";
+.align-left {
+	text-align: left;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.header-cell {
+	color: var(--common-headerTextColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.skeleton-data-cell {
+	box-sizing: border-box;
+	height: 32px;
+}
+
+.name-data-cell {
+	color: var(--common-linkColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.address-data-cell {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	color: var(--common-textColor);
+	align-items: center;
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.time-data-cell,
+.height-data-cell {
+	display: block;
+	color: var(--common-textColor);
+	font-family: 'IBM Plex Sans';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 150%;
+}

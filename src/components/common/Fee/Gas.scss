@@ -1,0 +1,31 @@
+@import "src/styles/utils";
+
+.select-gas {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	padding-left: 8px;
+	padding-right: 8px;
+
+	.gas-span {
+		margin-right: 5px;
+	}
+
+	.input-text {
+		background: var(--common-containerBackgroundColor);
+		border: var(--common-modal-modalCommonBorderColor);
+		width: 20%;
+		@include media("<medium") {
+			width: 60%;
+		}
+	}
+
+	.input-range {
+		margin-left: 10px;
+	}
+}
+
+.refactor-padding {
+	padding-left: 0;
+	padding-right: 0;
+}

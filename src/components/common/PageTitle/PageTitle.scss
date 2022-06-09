@@ -1,0 +1,23 @@
+@import "src/styles/utils";
+
+.pageTitle {
+	font-family: 'IBM Plex Sans';
+	font-size: 32px;
+	font-weight: 500;
+	line-height: 150%;
+	color: var(--common-textColor);
+	//color: #999999;
+
+	span {
+		text-transform: none;
+	}
+
+	@include media("<large") {
+		font-size: 27px;
+	}
+
+	@include media("<medium") {
+		font-size: 24px;
+		margin-bottom: 10px;
+	}
+}

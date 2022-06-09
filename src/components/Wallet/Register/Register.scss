@@ -1,0 +1,128 @@
+.Register {
+	padding: 30px;
+	background: var(--common-containerBackgroundColor);
+	box-shadow: 0px 2px 8px var(--common-boxShadowColor);
+	border-radius: 8px;
+
+	.title {
+		font-weight: 500;
+		font-size: 24px;
+		line-height: 150%;
+		color: var(--common-textColor);
+		margin-bottom: 34px;
+	}
+
+	.row {
+		margin-bottom: 20px;
+
+		.tooltip {
+			background: #f7f7f7;
+			border-radius: 4px;
+		}
+		.MuiFormLabel-root {
+			font-weight: 500;
+			font-size: 16px;
+			line-height: 150%;
+			color: var(--common-textColor);
+			margin-bottom: 10px;
+		}
+
+		.MuiInputBase-root {
+			min-width: 300px;
+			height: 40px;
+			padding: 10px 15px;
+			box-sizing: border-box;
+			border-radius: 6px;
+			font-weight: normal;
+			font-size: 14px;
+			line-height: 150%;
+		}
+
+		.asterisk {
+			color: red;
+		}
+
+		.error {
+			margin-top: 5px;
+		}
+	}
+
+	.MuiButton-root {
+		margin-top: 25px;
+		min-width: 300px;
+		height: 50px;
+		background: var(--common-modal-buttonSubmitBackgroundColor);
+		border-radius: 8px;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 150%;
+		text-align: center;
+		color: #ffffff;
+		text-transform: none;
+		font-family: 'IBM Plex Sans';
+		font-style: normal;
+		padding: 11px;
+	}
+
+	.form-dialog {
+		width: 87%;
+	}
+
+	.input-text {
+		font-size: 14px;
+		color: var(--common-placeholderTextColor);
+
+		> div {
+			border: 1px solid var(--common-borderColor);
+			border-radius: 6px;
+		}
+
+		label {
+			font-size: 22px;
+			color: var(--common-textColor);
+			top: -12px;
+			font-weight: 500;
+		}
+
+		input {
+			color: var(--common-placeholderTextColor);
+		}
+	}
+	.grid {
+		margin-top: 25px;
+	}
+
+	.form-input {
+		margin-bottom: 10px !important;
+		textarea {
+			border-color: var(--common-borderColor);
+			padding-left: 15px;
+			padding-top: 10px;
+			font-size: 16px;
+			&::-webkit-input-placeholder {
+				color: var(--common-placeholderTextColor);
+				font-size: 16px;
+			}
+			&:focus {
+				border-color: var(--common-borderColor);
+				outline: var(--common-borderColor);
+			}
+		}
+		.label {
+			font-size: 16px;
+			font-weight: 500;
+			color: var(--common-textColor);
+			margin-top: -15px;
+			margin-bottom: 7px;
+		}
+		.new-label {
+			color: var(--common-placeholderTextColor);
+			font-size: 14px;
+			margin-top: 5px;
+			.open-dialog {
+				color: var(--common-modal-modalCommonTextColor);
+				cursor: pointer;
+			}
+		}
+	}
+}

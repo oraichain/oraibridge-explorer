@@ -1,0 +1,204 @@
+@import "src/styles/utils";
+
+.PriceDisplay {
+	margin: 20px 0px 20px 30px;
+	padding-right: 30px;
+	border-right: 1px solid var(--common-borderColor);
+	height: fit-content;
+	display: flex;
+	flex-flow: column;
+	@include media("<large") {
+		margin: 0;
+		max-width: map_get($breakpoints, large);
+		height: unset;
+		padding: 15px;
+		background: var(--common-containerBackgroundColor);
+		padding-bottom: 0px;
+		border-right: none;
+	}
+	.iconBlockTime-wrapper {
+		display: flex;
+		flex-flow: row;
+		justify-content: space-between;
+		border-bottom: 1px solid var(--common-separateLine);
+		@include media("<large") {
+			border-bottom: none;
+		}
+		padding-bottom: 12px;
+		.logo {
+			display: flex;
+			width: fit-content;
+
+			&-icon {
+				width: 32px;
+				height: 32px;
+				color: var(--common-textColor);
+				// content: url("../../../../assets/common/orai_favicon.png");
+			}
+
+			&-text {
+				display: block;
+				width: fit-content;
+				margin-top: 4px;
+				margin-left: 8px;
+
+				font-size: 20px;
+				font-weight: 500;
+				font-stretch: normal;
+				font-style: normal;
+				line-height: 1.2;
+				letter-spacing: normal;
+				text-align: left;
+				color: var(--common-textColor);
+			}
+		}
+		.BlockTime {
+			display: flex;
+			flex-flow: row;
+			align-items: center;
+			img {
+				margin-right: 4px;
+			}
+			font-family: "Open Sans", serif;
+			font-size: 13px;
+			font-weight: normal;
+			font-stretch: normal;
+			font-style: normal;
+			line-height: 1.38;
+			letter-spacing: normal;
+			text-align: left;
+			color: var(--dashboard-iconBlockTimesColor);
+			p {
+				span {
+					font-weight: normal;
+				}
+			}
+
+			&-icon {
+				color: var(--dashboard-iconBlockTimesColor);
+			}
+		}
+
+		margin-bottom: 31px;
+	}
+
+	.price {
+		height: 34px;
+		align-self: center;
+
+		font-size: 32px;
+		font-weight: 500;
+		font-stretch: normal;
+		font-style: normal;
+		line-height: 1.21;
+		letter-spacing: normal;
+		text-align: left;
+		color: var(--common-textColor);
+
+		margin-bottom: 32px;
+	}
+
+	.volume24h-wrapper {
+		width: 100%;
+
+		display: flex;
+		flex-flow: row;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--common-borderColor);
+		box-sizing: border-box;
+		border-radius: 4px;
+		padding: 10px 0px;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 150%;
+		background-color: var(--common-blockItemBackgroundColor);
+		color: var(--common-textColor);
+
+		.content {
+			display: flex;
+			width: fit-content;
+			flex-flow: row;
+			align-items: center;
+			justify-content: space-between;
+
+			img {
+				object-fit: fill;
+				width: 20px;
+				height: 20px;
+
+				margin-right: 4px;
+			}
+
+			.text {
+				width: fit-content;
+				font-size: 15px;
+				font-weight: 500;
+				font-stretch: normal;
+				font-style: normal;
+				line-height: 1.27;
+				letter-spacing: normal;
+				text-align: left;
+				color: #4b525d;
+			}
+		}
+
+		.green {
+			color: green;
+			font-weight: 500;
+		}
+
+		.red {
+			color: var(--dashboard-blockTimeCoinGeckoTextColor);
+			font-weight: 500;
+		}
+
+		margin-bottom: 17px;
+		@include media("<large", ">=small") {
+			margin-bottom: 33px;
+		}
+	}
+
+	.CapVolume-wrapper {
+		width: 100%;
+		border-radius: 5px;
+		padding: 10px 0;
+
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+
+		ul {
+			height: 20px;
+
+			display: flex;
+			flex-flow: row;
+			align-items: center;
+			justify-content: space-between;
+
+			font-family: "Open Sans", serif;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 150%;
+			font-stretch: normal;
+			font-style: normal;
+			letter-spacing: normal;
+			text-align: left;
+			color: var(--common-textColor);
+			margin-bottom: 16px;
+
+			li {
+				&:nth-child(1) {
+					margin-right: 5px;
+					text-align: left;
+				}
+
+				&:nth-child(2) {
+					text-align: right;
+					font-weight: 600;
+					font-size: 20px;
+				}
+			}
+		}
+	}
+}

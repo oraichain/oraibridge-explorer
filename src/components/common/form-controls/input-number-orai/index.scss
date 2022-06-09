@@ -1,0 +1,47 @@
+.required-label {
+	color: #f44336;
+	font-size: 12px;
+	border: 0 !important;
+}
+
+.input-text {
+	background: var(--common-containerBackgroundColor);
+	border: 1px solid var(--common-borderColor);
+	box-sizing: border-box;
+	border-radius: 6px;
+	// &::before {
+	// 	border: 0 !important;
+	// }
+	// &::after {
+	// 	border: 0 !important;
+	// }
+	input {
+		border: 0;
+		font-size: 14px;
+		padding: 12px;
+		padding-left: 15px;
+
+		&:focus {
+			outline: none;
+		}
+		// &::before {
+		// 	border: 0;
+		// }
+		// &::after {
+		// 	border: 0;
+		// }
+	}
+}
+
+.input-exchange {
+	// border: 0;
+	.input-amount {
+		background: var(--common-containerBackgroundColor) !important;
+		color: var(--common-textColor);
+		width: 100%;
+	}
+	.to-usdt {
+		padding-left: 15px;
+		font-family: 'IBM Plex Sans';
+	}
+}
