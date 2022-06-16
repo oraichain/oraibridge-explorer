@@ -2,5 +2,13 @@
   "projects": {
     "default": "oraichain-mainnet"
   },
-  "targets": {}
+  "targets": {
+    "oraichain-mainnet": {
+      "hosting": {
+        "oraibridge-explorer": [
+          "oraibridge-explorer"
+        ]
+      }
+    }
+  }
 }
