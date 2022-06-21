@@ -36,7 +36,7 @@ const PendingTx = ({setPending, pending}) => {
 		}
 	});
 	const txHash = params?.["tx"];
-	const path = `https://rpc.orai.io/unconfirmed_txs?limit=${consts.REQUEST.LIMIT}`;
+	const path = `https://bridge-v2.rpc.orai.io/unconfirmed_txs?limit=${consts.REQUEST.LIMIT}`;
 
 	let timerIdRef = useRef(null);
 	let pendingRef = useRef(pending);

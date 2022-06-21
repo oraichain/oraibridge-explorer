@@ -17,7 +17,7 @@ const StatusBox = memo(() => {
 	let timerID = useRef(null);
 
 	const {data, loading, refetch} = useGet({
-		path: consts.API.ORAICHAIN_INFO,
+		path: "https://api.scan.orai.io/v1/oraichain_info",
 		resolve: data => {
 			setLoadCompleted(true);
 			dispatch(setStatusBox(data));
