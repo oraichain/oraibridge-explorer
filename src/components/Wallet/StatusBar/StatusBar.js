@@ -40,7 +40,7 @@ export default function () {
 	const airi2usd = useSelector(state => state.blockchain.statusAiri?.price);
 	const balance = data?.balances?.find(balance => balance.denom === "orai");
 	const amount = balance?.amount ?? 0;
-	const denom = balance?.denom ?? "ORAI";
+	const denom = balance?.denom ?? consts.DENOM_UORAIB;
 	const [isZoom, setIsZoom] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -68,8 +68,6 @@ export default function () {
 			.multipliedBy(typeusd || 0)
 			.toFormat(2);
 	};
-
-	console.log();
 
 	let balanceElement;
 	if (!data) {
@@ -137,7 +135,7 @@ export default function () {
 			</Grid>
 			<Grid item md={3} sm={12} xs={12}>
 				<div className={cx("card")}>
-					<div className={cx("title")}>ORAI Balance</div>
+					<div className={cx("title")}>{consts.DENOM_UORAIB.toUpperCase()} Balance</div>
 					<div className={cx("balance")}>{balanceElement}</div>
 					<div className={cx("footer")} onClick={handleRefeshAccount}>
 						<img alt='/' src={require("../../../assets/wallet/refresh.svg")} style={{ marginRight: 5 }} /> Refresh

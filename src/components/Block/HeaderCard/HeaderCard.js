@@ -66,7 +66,7 @@ const HeaderCard = ({data}) => {
 					) : (
 						<div className={cx("tx-number")}>
 							<span className={cx("tx-number-value")}>{formatOrai(data?.total_fees)}</span>
-							<span className={cx("tx-number-denom")}>ORAI</span>
+							<span className={cx("tx-number-denom")}>{consts.DENOM_UORAIB}</span>
 						</div>
 					)}
 				</InfoRow>

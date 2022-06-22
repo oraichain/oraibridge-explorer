@@ -36,7 +36,7 @@ export default function (props) {
 	return (
 		<Container fixed className={cx("wallet")}>
 			<TitleWrapper>
-				<PageTitle title={"Orai Wallet"} />
+				<PageTitle title={"OraiB Wallet"} />
 			</TitleWrapper>
 			<StatusBar />
 			<Tabs

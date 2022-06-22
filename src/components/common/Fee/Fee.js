@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import cn from "classnames/bind";
 import styles from "./Fee.scss";
+import consts from "src/constants/consts";
 
 const cx = cn.bind(styles);
 
@@ -33,7 +34,7 @@ export default function Fee({minFee: {estimate_fee}, handleChooseFee, className 
 						<div className={cx("title")}> {type} </div>
 						<div className={cx("amount")}>
 							{" "}
-							<span className={cx("amount-number")}> {amount} </span> {typePrice ? "AIRI" : "ORAI"}{" "}
+							<span className={cx("amount-number")}> {amount} </span> {typePrice ? "AIRI" : consts.DENOM_UORAIB.toUpperCase()}{" "}
 						</div>
 						<div className={cx("amount")}> $ {typePrice ? "" : amountUSD} </div>
 					</div>

@@ -132,7 +132,7 @@ const ValidatorCardList = memo(({ data = [] }) => {
 										<div className={cx("item-title")}>Self Bonded</div>
 										<div className={cx("voting-power-data-cell")}>
 											<span>{formatOrai(item?.self_bonded)}</span>
-											<span>ORAI</span>
+											<span>{consts.DENOM_UORAIB.toUpperCase()}</span>
 										</div>
 									</td>
 									<td>

@@ -169,4 +169,5 @@ export default Object.freeze({
 		DELAY: 100,
 	},
 	VALID_ORIGINS: ["https://testnet-wallet.web.app", "https://api.wallet.orai.io", "http://localhost:3001", "https://prerelease.wallet.orai.io"],
+	DENOM_UORAIB: "oraib"
 });

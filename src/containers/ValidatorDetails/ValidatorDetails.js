@@ -30,7 +30,7 @@ const cx = cn.bind(styles);
 const ValidatorDetails = ({ match }) => {
 	const validatorParam = match.params.validator;
 	let validatorAddress;
-	if (validatorParam.startsWith("oraivaloper1")) {
+	if (validatorParam.startsWith("oraibvaloper1")) {
 		validatorAddress = validatorParam;
 	} else {
 		validatorAddress = logoBrand.find(item => item.name === validatorParam)?.operatorAddress ?? "";
@@ -38,7 +38,6 @@ const ValidatorDetails = ({ match }) => {
 
 	const theme = useTheme();
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
-
 	const path = `${consts.API.VALIDATOR}/${validatorAddress}`;
 	const { data, loading, error } = useGet({
 		path: path,

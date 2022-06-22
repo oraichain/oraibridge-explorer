@@ -43,7 +43,7 @@ const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
 						<div className={cx("amount-data-cell")}>
 							<div className={cx("amount")}>
 								<span className={cx("amount-value")}>0</span>
-								<span className={cx("amount-denom")}>ORAI</span>
+								<span className={cx("amount-denom")}>{consts.DENOM_UORAIB}</span>
 								<div className={cx("amount-usd")}>($0)</div>
 							</div>
 						</div>
@@ -216,7 +216,7 @@ const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
 											<div className={cx("fee-data-cell", "align-right")}>
 												<div className={cx("fee")}>
 													<span className={cx("fee-value")}>{formatOrai(item.fee.amount[0].amount)}</span>
-													<span className={cx("fee-denom")}>{reduceString(item.fee.amount[0].denom)}</span>
+													<span className={cx("fee-denom")}>{reduceString(consts.DENOM_UORAIB)}</span>
 													{/* <span className={cx("fee-usd")}>
 															{status?.price ? "($" + (status?.price * Number(formatOrai(item.fee.amount[0].amount))).toFixed(8) + ")" : ""}
 														</span> */}

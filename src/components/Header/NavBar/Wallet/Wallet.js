@@ -79,7 +79,7 @@ const WalletWithAdress = ({ data: props, collapse, dispatch, account }) => {
 		path: `${consts.LCD_API_BASE}${consts.LCD_API.WASM}/${config.AIRI_ADDR}/smart/${btoa(JSON.stringify({ balance: { address: title } }))}`,
 	});
 
-	const balance = data?.balances?.find(balance => balance.denom === "orai");
+	const balance = data?.balances?.find(balance => balance.denom === "uoraib");
 	const amount = balance?.amount;
 	const denom = balance?.denom;
 
