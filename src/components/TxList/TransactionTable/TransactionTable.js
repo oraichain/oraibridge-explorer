@@ -105,8 +105,8 @@ const TransactionTable = memo(({ data, rowMotions, account, royalty = false }) =
 		return (
 			<div className={cx("amount")}>
 				<span className={cx("amount-value")}>{formatOrai(amount)}</span>
-				<span className={cx("amount-denom")}>{denom}</span>
-				{denom?.toLowerCase() === consts.DENOM_ORAI ? (
+				<span className={cx("amount-denom")}>{consts.DENOM_UORAIB}</span>
+				{denom?.toLowerCase() === consts.DENOM_UORAIB ? (
 					<div className={cx("amount-usd")}>{status?.price ? " ($" + formatFloat(status.price * (amount / 1000000), 4) + ")" : ""}</div>
 				) : (
 					<></>
@@ -164,44 +164,6 @@ const TransactionTable = memo(({ data, rowMotions, account, royalty = false }) =
 					</div>
 				);
 			}
-			// let ibcAmountDataCell = null;
-			// if (account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgRecvPacket")) {
-			// 	let message = item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgRecvPacket");
-			// 	if (message?.packet?.data) {
-			// 		const msgRec = JSON.parse(atob(message?.packet?.data));
-			// 		const port = message?.packet?.destination_port;
-			// 		const channel = message?.packet?.destination_channel;
-			// 		ibcAmountDataCell = _.isNil(message?.packet) ? (
-			// 			<div className={cx("align-left")}>-</div>
-			// 		) : (
-			// 			<div className={cx("ibc-data-cell", "align-right")}>
-			// 				<div className={cx("ibc-value")}>{formatOrai(msgRec?.amount, 1000000, 1) + " " + parseIbcMsgRecvPacket(msgRec?.denom)}</div>
-			// 				<div className={cx("ibc-denom")}>{"(" + port + "/" + channel + "/" + msgRec?.denom + ")"}</div>
-			// 			</div>
-			// 		);
-			// 	}
-			// } else if (account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgTransfer")) {
-			// 	let rawLog, rawLogParse, rawLogDenomSplit;
-			// 	if (item?.result === "Success") {
-			// 		rawLog = JSON.parse(item?.raw_log);
-			// 		rawLogParse = rawLog && parseIbcMsgTransfer(rawLog);
-			// 		rawLogDenomSplit = rawLogParse?.denom?.split("/");
-			// 	}
-
-			// 	ibcAmountDataCell =
-			// 		item?.result !== "Success" ? (
-			// 			<div className={cx("align-right")}>-</div>
-			// 		) : (
-			// 			<div className={cx("ibc-data-cell", "align-right")}>
-			// 				<div className={cx("ibc-value")}>
-			// 					{formatOrai(rawLogParse?.amount, 1000000, 1) + " " + parseIbcMsgRecvPacket(rawLogDenomSplit?.[rawLogDenomSplit.length - 1])}
-			// 				</div>
-			// 				<div className={cx("ibc-denom")}>{"(" + parseIbcMsgTransfer(rawLog)?.denom + ")"}</div>
-			// 			</div>
-			// 		);
-			// } else {
-			// 	ibcAmountDataCell = <div className={cx("align-right")}>-</div>;
-			// }
 
 			const resultDataCell = _.isNil(item?.result) ? (
 				<div className={cx("align-left")}>-</div>
@@ -236,17 +198,6 @@ const TransactionTable = memo(({ data, rowMotions, account, royalty = false }) =
 					transferStatus = <div className={cx("transfer-status", "transfer-status-out")}>OUT</div>;
 				}
 			}
-
-			// let ibcAmountDataCell = _.isNil(item?.messages) ? (
-			// 	<div className={cx("align-left")}>-</div>
-			// ) : (
-			// 	<div className={cx("amount-data-cell", { "amount-data-cell-with-transfer-status": transferStatus }, "align-right")}>
-			// 		<div className={cx("amount")}>
-			// 			<span className={cx("amount-value")}>{formatOrai(item?.messages?.[0]?.token?.amount)}</span>
-			// 		</div>
-			// 		<div className={cx("result-data-cell")}>{reduceStringAssets(item?.messages?.[0]?.token?.denom, 8, 3)}</div>
-			// 	</div>
-			// );
 
 			let amountDataCell;
 			let amount;
@@ -296,7 +247,7 @@ const TransactionTable = memo(({ data, rowMotions, account, royalty = false }) =
 						) : (
 							<div className={cx("amount")}>
 								<span className={cx("amount-value")}>0</span>
-								<span className={cx("amount-denom")}>ORAI</span>
+								<span className={cx("amount-denom")}>{consts.DENOM_UORAIB}</span>
 								<div className={cx("amount-usd")}>($0)</div>
 							</div>
 						)}
@@ -315,7 +266,7 @@ const TransactionTable = memo(({ data, rowMotions, account, royalty = false }) =
 				<div className={cx("fee-data-cell", "align-right")}>
 					<div className={cx("fee")}>
 						<span className={cx("fee-value")}>{formatOrai(item.fee.amount[0] || 0)}</span>
-						<span className={cx("fee-denom")}>ORAI</span>
+						<span className={cx("fee-denom")}>{consts.DENOM_UORAIB}</span>
 						{/* <span className={cx("fee-usd")}>
 									{status?.price ? "($" + (status?.price * Number(formatOrai(item.fee.amount[0].amount))).toFixed(8) + ")" : ""}
 								</span> */}

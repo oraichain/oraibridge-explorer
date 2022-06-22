@@ -12,6 +12,7 @@ import ValidatorsIcon from "src/icons/Validators/ValidatorsIcon";
 import HeightIcon from "src/icons/Validators/HeightIcon";
 import BondedTokensIcon from "src/icons/Validators/BondedTokensIcon";
 import BlockTimeIcon from "src/icons/Validators/BlockTimeIcon";
+import consts from "src/constants/consts";
 
 const cx = cn.bind(styles);
 
@@ -34,7 +35,7 @@ const StatusCardList = memo(() => {
 			{
 				icon: <BondedTokensIcon></BondedTokensIcon>,
 				label: "Bonded Tokens",
-				value: status?.bonded_tokens ? formatFloat(status.bonded_tokens / 1000000) + " ORAI " : "-",
+				value: status?.bonded_tokens ? formatFloat(status.bonded_tokens / 1000000) + ` ${consts.DENOM_UORAIB.toUpperCase()} ` : "-",
 				comment: status?.price ? formatFloat(status.price * (status.bonded_tokens / 1000000)) + " USD" : "-",
 			},
 			{

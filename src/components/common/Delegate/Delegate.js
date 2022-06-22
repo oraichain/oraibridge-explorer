@@ -229,7 +229,7 @@ const Delegate = memo(({ a, openButtonText = "Delegate for this validator", oper
 								{" "}
 								<span className={cx("percentage")}>
 									{" "}
-									{formatOrai(a.min_self_delegation)} <span className={cx("percentage-denom")}>ORAI</span>
+									{formatOrai(a.min_self_delegation)} <span className={cx("percentage-denom")}>{consts.DENOM_UORAIB.toUpperCase()}</span>
 								</span>
 							</div>
 						</div>
@@ -237,7 +237,7 @@ const Delegate = memo(({ a, openButtonText = "Delegate for this validator", oper
 						<div className={cx("space-between", "balance-row")}>
 							<div className={cx("left", "uppercase")}>
 								{" "}
-								{displayBalance(balance)} {denom}{" "}
+								{displayBalance(balance)} {consts.DENOM_UORAIB.toUpperCase()}{" "}
 							</div>
 							<div className={cx("right")}>
 								{" "}
@@ -247,7 +247,7 @@ const Delegate = memo(({ a, openButtonText = "Delegate for this validator", oper
 						<Divider />
 						<div className={cx("space-between")}>
 							<label htmlFor='amount' className={cx("label")}>
-								Amount (ORAI)
+								Amount ({consts.DENOM_UORAIB.toUpperCase()})
 							</label>
 							<div className={cx("percent-buttons")}>
 								{percents.map(value => (
@@ -287,9 +287,9 @@ const Delegate = memo(({ a, openButtonText = "Delegate for this validator", oper
 			return (
 				<>
 					<DialogContent>
-						<div className={cx("delegate-title")}> Enter your ORAI amount </div>
+						<div className={cx("delegate-title")}> Enter your ORAIB amount </div>
 						<div className={cx("space-between", "amount-row")}>
-							<div className={cx("left")}>Amount (ORAI)</div>
+							<div className={cx("left")}>Amount ({consts.DENOM_UORAIB.toUpperCase()})</div>
 							<div className={cx("right")}>
 								{" "}
 								<ExchangeIconGrey /> <span className={cx("dollar")}>$ {formatUSD(amount)} </span>
@@ -303,8 +303,8 @@ const Delegate = memo(({ a, openButtonText = "Delegate for this validator", oper
 							<div className={cx("right")}> Yearly Earning </div>
 						</div>
 						<div className={cx("space-between", "estimate-orai-row")}>
-							<div className={cx("left")}> {monthlyORAI} ORAI </div>
-							<div className={cx("right")}> {yearlyORAI} ORAI </div>
+							<div className={cx("left")}> {monthlyORAI} {consts.DENOM_UORAIB.toUpperCase()} </div>
+							<div className={cx("right")}> {yearlyORAI} {consts.DENOM_UORAIB.toUpperCase()} </div>
 						</div>
 						<div className={cx("space-between", "estimate-dollar-row")}>
 							<div className={cx("left")}>

@@ -59,7 +59,7 @@ const AccountCardList = memo(({data = []}) => {
 										{_.isNil(item?.balance) ? (
 											<div className={cx("item-text")}>-</div>
 										) : (
-											<div className={cx("item-text")}>{`${formatOrai(item?.balance)} ORAI`}</div>
+											<div className={cx("item-text")}>{`${formatOrai(item?.balance)} ${consts.DENOM_UORAIB.toUpperCase()}`}</div>
 										)}
 									</td>
 								</tr>

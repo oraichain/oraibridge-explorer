@@ -277,7 +277,7 @@ const ValidatorTable = memo(({ data = [] }) => {
 			let selfBonded = (
 				<div className={cx("voting-power-data-cell", "align-right")}>
 					<div>{formatOrai(item?.self_bonded)}</div>
-					<div>ORAI</div>
+					<div>{consts.DENOM_UORAIB.toUpperCase()}</div>
 				</div>
 			);
 

@@ -15,6 +15,7 @@ import {getTotalTime, setAgoTime} from "src/lib/scripts";
 import InfoRow from "src/components/common/InfoRow";
 import ShortenedString from "src/components/common/ShortenedString";
 import styles from "./TxInfo.module.scss";
+import consts from "src/constants/consts";
 
 const cx = cn.bind(styles);
 
@@ -90,7 +91,7 @@ const TxInfo = ({data}) => {
 					) : (
 						<div className={cx("time")}>
 							<span className={cx("time-value")}>{formatOrai(data?.fee.amount[0]?.amount)}</span>
-							<span className={cx("time-denom")}>ORAI</span>
+							<span className={cx("time-denom")}>{consts.DENOM_UORAIB}</span>
 						</div>
 					)}
 				</InfoRow>

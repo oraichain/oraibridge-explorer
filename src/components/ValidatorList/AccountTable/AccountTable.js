@@ -74,7 +74,7 @@ const AccountTable = memo(({data = []}) => {
 			const balanceDataCell = _.isNil(item?.balance) ? (
 				<div className={cx("align-left")}>-</div>
 			) : (
-				<div className={cx("balance-data-cell")}>{`${formatOrai(item?.balance)} ORAI`}</div>
+				<div className={cx("balance-data-cell")}>{`${formatOrai(item?.balance)} ${consts.DENOM_UORAIB.toUpperCase()}`}</div>
 			);
 
 			const percentageDataCell = _.isNil(item?.percentage) ? (
