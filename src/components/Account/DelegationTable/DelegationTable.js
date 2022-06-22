@@ -41,7 +41,7 @@ const DelegationTable = memo(({data = []}) => {
 					{reduceString(item.validator_address, 6, 6)}
 				</NavLink>
 			);
-
+			console.log({ item })
 			const amountDataCell =
 				_.isNil(item?.amount) || _.isNil(item?.denom) ? (
 					<div className={cx("align-right")}>-</div>
@@ -49,7 +49,7 @@ const DelegationTable = memo(({data = []}) => {
 					<div className={cx("amount-data-cell", "align-right")}>
 						<div className={cx("amount")}>
 							<span className={cx("amount-value")}>{formatOrai(item.amount)}</span>
-							<span className={cx("amount-denom")}>{reduceString(item.denom)}</span>
+							<span className={cx("amount-denom")}>{reduceString(consts.DENOM_UORAIB)}</span>
 						</div>
 					</div>
 				);
@@ -61,7 +61,7 @@ const DelegationTable = memo(({data = []}) => {
 					<div className={cx("reward-data-cell", "align-right")}>
 						<div className={cx("reward")}>
 							<span className={cx("reward-value")}>{formatOrai(item.reward)}</span>
-							<span className={cx("reward-denom")}>{reduceString(item.denom)}</span>
+							<span className={cx("reward-denom")}>{reduceString(consts.DENOM_UORAIB)}</span>
 						</div>
 					</div>
 				);

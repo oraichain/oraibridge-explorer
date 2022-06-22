@@ -67,7 +67,7 @@ const BlockTable = memo(({ data = [], rowMotions = [] }) => {
 			const txsDataCell = _.isNil(item?.num_txs) ? (
 				<div className={cx("align-right")}>-</div>
 			) : (
-				<div className={cx("data-cell", "color-black", "align-right")}>{item.num_txs}</div>
+				<div className={cx("data-cell", "color-black", "align-right")}>{item.num_txs || "-"}</div>
 			);
 
 			const timeDataCell = _.isNil(item?.timestamp) ? (

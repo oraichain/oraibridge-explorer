@@ -1,6 +1,5 @@
 import * as React from "react";
 import cn from "classnames/bind";
-import styles from "./PriceDisplay.scss";
 import {formatNumber} from "src/lib/scripts";
 //  component
 import Skeleton from "react-skeleton-loader";
@@ -8,13 +7,18 @@ import Skeleton from "react-skeleton-loader";
 import {useSelector} from "react-redux";
 
 import BlockTimeIcon from "src/icons/Dashboard/BlockTimeIcon";
+import {ThemeSetup} from "src/helpers/helper";
+import OraiBridgeIcon from "src/icons/OraiBridgeIcon.svg";
+import OraiBridgeIconDark from "src/icons/OraiBridgeIconDark.svg";
+import consts from "src/constants/consts";
+import styles from "./PriceDisplay.scss";
 import OraiIcon from "src/icons/OraiIcon";
 
 const cx = cn.bind(styles);
 
-export default function(props) {
+export default function() {
 	const status = useSelector(state => state.blockchain.status);
-
+	const { isDarkTheme } = ThemeSetup();
 	// React.useEffect(() => {
 	// 	const cancelToken = axios.CancelToken;
 	// 	const source = cancelToken.source();
@@ -24,6 +28,7 @@ export default function(props) {
 	// 		source.cancel("cleanup cancel");
 	// 	};
 	// }, [dispatch]);
+
 	return React.useMemo(
 		() => (
 			<div className={cx("PriceDisplay")}>
@@ -31,7 +36,13 @@ export default function(props) {
 					<div className={cx("logo")}>
 						{/* <img alt='ORAI_icon' /> */}
 						<OraiIcon className={cx("logo-icon")} />
+						{/* {isDarkTheme ? (
+							<img className={cx("logo-icon")} src={OraiBridgeIcon} alt={"logo"} />
+						) : (
+							<img className={cx("logo-icon")} src={OraiBridgeIconDark} alt={"logo"} />
+						)} */}
 						<div className={cx("logo-text")}>ORAI</div>
+						{/* <div className={cx("logo-text")}>{consts.DENOM_UORAIB.toUpperCase()}</div> */}
 					</div>
 					<div className={cx("BlockTime")}>
 						<BlockTimeIcon className={cx("BlockTime-icon")}></BlockTimeIcon>
@@ -66,6 +77,6 @@ export default function(props) {
 				</div>
 			</div>
 		),
-		[status]
+		[status, isDarkTheme]
 	);
 }

@@ -11,9 +11,9 @@ export const embedChainInfos = [
         rpc: networks[NetworkKey.MAINNET].rpc,
         rest: networks[NetworkKey.MAINNET].lcd,
         chainId: networks[NetworkKey.MAINNET].chainId,
-        chainName: 'Oraichain',
+        chainName: 'OraiBridge',
         stakeCurrency: {
-            coinDenom: 'ORAI',
+            coinDenom: 'ORAIB',
             coinMinimalDenom: networks[NetworkKey.MAINNET].denom,
             coinDecimals: 6,
             coinGeckoId: 'oraichain-token',

@@ -3,15 +3,13 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import { useTheme } from "@material-ui/core/styles";
 import cn from "classnames/bind";
 import Wallet from "./Wallet/Wallet";
-import DownAngleIcon from "src/icons/DownAngleIcon";
-import styles from "./NavBar.module.scss";
-import logoIcon from "src/assets/header/logo.svg";
-import OraiLogo from "src/icons/OraiLogo";
+import OraiBridgeLogo from "src/icons/OraiBridgeLogo.svg";
 import ModeSwitch from "src/components/common/ModeSwitch";
 import { BiChevronDown } from "react-icons/bi";
+import styles from "./NavBar.module.scss";
+
 const cx = cn.bind(styles);
 
 const NavBarDesktop = ({ initialNavLinks, isDarkTheme }) => {
@@ -36,9 +34,7 @@ const NavBarDesktop = ({ initialNavLinks, isDarkTheme }) => {
 	return (
 		<div className={cx("navbar")}>
 			<NavLink to='/' className={cx("navbar-brand")}>
-				{/* <img className={cx("navbar-brand-icon")} src={logoIcon} alt={"logo"} />
-				<span className={cx("navbar-brand-text")}>Oraiscan</span> */}
-				<OraiLogo />
+				<img className={cx("navbar-brand-icon")} src={OraiBridgeLogo} alt={"logo"} />
 			</NavLink>
 			<nav className={cx("header-menu")} ref={navbarCollapseRef}>
 				<ul>

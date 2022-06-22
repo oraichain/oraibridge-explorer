@@ -11,6 +11,7 @@ import RightArrowIcon from "src/icons/RightArrowIcon";
 import Dialog from "@material-ui/core/Dialog";
 import { ReactComponent as CloseIcon } from "src/assets/icons/close.svg";
 import { isNil } from "lodash";
+import consts from "src/constants/consts";
 
 const cx = classNames.bind(styles);
 
@@ -65,7 +66,7 @@ const DetailCard = memo(({ data }) => {
 		const votingPower = formatInteger(data.voting_power);
 		votingPowerInfo = (
 			<div className={cx("info-text")}>
-				{votingPowerPercent} % ({votingPower}) <span className={cx("info-denom")}>ORAI</span>
+				{votingPowerPercent} % ({votingPower}) <span className={cx("info-denom")}>{consts.DENOM_UORAIB}</span>
 			</div>
 		);
 	}
@@ -93,7 +94,7 @@ const DetailCard = memo(({ data }) => {
 		<div className={cx("info")}>
 			<div className={cx("info-title")}>Self Bonded</div>
 			<div className={cx("info-text")}>
-				{!isNil(data?.self_bonded) ? formatOrai(data?.self_bonded) : "-"} <span className={cx("info-denom")}>ORAI</span>{" "}
+				{!isNil(data?.self_bonded) ? formatOrai(data?.self_bonded) : "-"} <span className={cx("info-denom")}>{consts.DENOM_UORAIB}</span>{" "}
 			</div>
 		</div>
 	);

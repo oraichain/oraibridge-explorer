@@ -28,10 +28,12 @@
 		.logo {
 			display: flex;
 			width: fit-content;
+			align-items: center;
+			margin-right: 8px;
 
 			&-icon {
-				width: 32px;
-				height: 32px;
+				width: 38px;
+				height: auto;
 				color: var(--common-textColor);
 				// content: url("../../../../assets/common/orai_favicon.png");
 			}
