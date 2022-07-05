@@ -25,10 +25,9 @@ const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
 const ForkTsCheckerWebpackPlugin = require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 const typescriptFormatter = require("react-dev-utils/typescriptFormatter");
 const CopyPlugin = require("copy-webpack-plugin");
+const postcssNormalize = require("postcss-normalize");
 const { execSync } = require("child_process");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-
-const postcssNormalize = require("postcss-normalize");
 
 const appPackageJson = require(paths.appPackageJson);
 
@@ -168,7 +167,6 @@ module.exports = function (webpackEnv) {
 		});
 	}
 
-	//
 	return {
 		mode: isEnvProduction ? "production" : isEnvDevelopment && "development",
 		// Stop compilation early in production
@@ -511,13 +509,13 @@ module.exports = function (webpackEnv) {
 			],
 		},
 		plugins: [
-			// Generates an `index.html` file with the <script> injected.
 			isEnvDevelopment && new ReactRefreshWebpackPlugin(),
 			new CopyPlugin([{ from: path.resolve(paths.appVendor, "vendor.bundle.js"), to: paths.appBuild }]),
 			new webpack.DllReferencePlugin({
 				context: path.join(__dirname, ".."),
 				manifest: vendorManifest,
 			}),
+			// Generates an `index.html` file with the <script> injected.
 			new HtmlWebpackPlugin(
 				Object.assign(
 					{ vendor: "/vendor.bundle.js" },

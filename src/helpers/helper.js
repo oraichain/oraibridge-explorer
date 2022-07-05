@@ -116,7 +116,7 @@ export const formatOrai = (value, divisor = 1000000, numberOfDigitsAfterDecimalP
 	// 	result = formatFloat(parseFloat(value) / divisor, numberOfDigitsAfterDecimalPoint);
 	// }
 
-	return `${result}` === "NaN" ? "0.000000" : parseInt(result) === 0 ? 0 : result;
+	return `${result}` === "NaN" ? "0.000000" : result;
 };
 export const formatNumber = value => {
 	if (value === undefined || value === null) {

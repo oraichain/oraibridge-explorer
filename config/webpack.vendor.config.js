@@ -2,7 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const package = require("../package.json");
 
-const ignores = ["@babel/helper-plugin-test-runner", "firebase"];
+const ignores = [];
 
 module.exports = {
     mode: "development",
