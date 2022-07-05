@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { memo } from "react";
 import classNames from "classnames/bind";
-// import DonutChart from "react-donut-chart";
+import DonutChart from "react-donut-chart";
 import Grid from "@material-ui/core/Grid";
 import { formatOrai } from "src/helpers/helper";
 import styles from "./ChartCard.scss";
@@ -29,7 +29,7 @@ const ChartCard = memo(({ data }) => {
 				</div>
 			</div>
 			<div className={cx("chart-card-body")}>
-				{/* <DonutChart
+				<DonutChart
 					startAngle={-90}
 					width={120}
 					height={120}
@@ -44,7 +44,7 @@ const ChartCard = memo(({ data }) => {
 					]}
 					colors={[colors.YES, colors.NO, colors.NO_WITH_VETO, colors.ABSTAIN]}
 					strokeColor={false}
-				/> */}
+				/>
 			</div>
 			<div className={cx("chart-card-footer")}>
 				<div className={cx("chart-comment-group")}>
