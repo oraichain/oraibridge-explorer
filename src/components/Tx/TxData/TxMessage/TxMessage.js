@@ -117,7 +117,7 @@ const TxMessage = ({ key, msg, data }) => {
 								<span className={cx("amount-value")}>{formatOrai(item?.coins?.[0]?.amount) + " "}</span>
 								<span className={cx("amount-denom")}>{item?.coins?.[0]?.denom}</span>
 								<span className={cx("amount-usd")}>
-									{status?.price ? " ($" + formatFloat((item?.coins?.[0]?.amount / 1000000) * status.price, 4) + ")" : ""}
+									{status?.price ? " ($" + formatFloat((item?.coins?.[0]?.amount / consts.NUM.COSMOS_DECIMAL) * status.price, 4) + ")" : ""}
 								</span>
 							</div>
 						</div>
@@ -181,7 +181,7 @@ const TxMessage = ({ key, msg, data }) => {
 					<div className={cx("amount")}>
 						<span className={cx("amount-value")}>{formatOrai(amount)}</span>
 						<span className={cx("amount-denom")}>{reduceString(denom)}</span>
-						<span className={cx("amount-usd")}>{!_.isNil(amount) ? " ($" + formatFloat((amount / 1000000) * status.price, 4) + ")" : ""}</span>
+						<span className={cx("amount-usd")}>{!_.isNil(amount) ? " ($" + formatFloat((amount / consts.NUM.COSMOS_DECIMAL) * status.price, 4) + ")" : ""}</span>
 					</div>
 				</InfoRow>
 			);
@@ -191,7 +191,7 @@ const TxMessage = ({ key, msg, data }) => {
 			return events.find(event => event.type === type);
 		};
 
-		const getCurrencyRowFromObject = (label, inputObject, keepOriginValue = false) => {
+		const getCurrencyRowFromObject = (label, inputObject, keepOriginValue = false, isEthCurrency = false) => {
 			// if (_.isNil(inputObject?.amount) || _.isNil(inputObject?.denom)) {
 			// 	return null;
 			// (
@@ -201,10 +201,9 @@ const TxMessage = ({ key, msg, data }) => {
 			// </InfoRow>
 			// );
 			// }
-			if (inputObject.length <= 0) {
-				return null;
+			if (!inputObject || inputObject.length <= 0) {
+				return 0;
 			}
-
 			const { amount, denom, denom_name } = inputObject[0] ? inputObject[0] : inputObject;
 			let finalDenom = denom;
 			if (denom !== consts.DENOM) {
@@ -225,8 +224,10 @@ const TxMessage = ({ key, msg, data }) => {
 				calculatedValue = amount;
 				formatedAmount = formatOrai(amount, 1);
 			} else {
-				calculatedValue = amount / 1000000;
-				formatedAmount = formatOrai(amount);
+				const decimal = isEthCurrency ? consts.NUM.ETH_DECIMAL : consts.NUM.COSMOS_DECIMAL;
+				calculatedValue = amount / decimal;
+				console.log("calculated amount: ", calculatedValue)
+				formatedAmount = formatOrai(amount, decimal);
 			}
 
 			return (
@@ -234,7 +235,7 @@ const TxMessage = ({ key, msg, data }) => {
 					<div className={cx("amount")}>
 						<span className={cx("amount-value")}>{formatedAmount + " "}</span>
 						<span className={cx("amount-denom")}>
-							{denom_name || (finalDenom && String(finalDenom).toLowerCase() === consts.DENOM ? finalDenom : consts.MORE)}
+							{denom_name || denom || (finalDenom && String(finalDenom).toLowerCase() === consts.DENOM ? finalDenom : consts.MORE)}
 						</span>
 						{finalDenom === consts.DENOM && (
 							<span className={cx("amount-usd")}>{status?.price ? " ($" + formatFloat(calculatedValue * status.price, 4) + ")" : ""}</span>
@@ -890,6 +891,53 @@ const TxMessage = ({ key, msg, data }) => {
 									src={JSON.parse(atob(value?.packet?.data))}
 								/>
 							</InfoRow>
+						</>
+					)}
+					{type === txTypes.ORAI_BRIDGE.MSG_BATCH_SEND_TO_COSMOS_CLAIM && (
+						<>
+							{getInfoRow("Sender", value?.ethereum_sender)}
+							{getInfoRow("Token Contract", value?.token_contract)}
+							{getAddressRow("Receiver", value?.cosmos_receiver)}
+							{getCurrencyRowFromObject("Amount", value?.amount, false, true)}
+							{getAddressRow("Orchestrator", value?.orchestrator)}
+							{getInfoRow("Block Height", value?.block_height)}
+						</>
+					)}
+					{type === txTypes.ORAI_BRIDGE.MSG_BATCH_SEND_TO_ETH_CLAIM && (
+						<>
+							{getInfoRow("Token Contract", value?.token_contract)}
+							{getAddressRow("Orchestrator", value?.orchestrator)}
+							{getInfoRow("Block Height", value?.block_height)}
+							{getInfoRow("Batch Nonce", value?.batch_nonce)}
+						</>
+					)}
+					{type === txTypes.ORAI_BRIDGE.MSG_CONFIRM_BATCH && (
+						<>
+							{getInfoRow("Token Contract", value?.token_contract)}
+							{getAddressRow("Orchestrator", value?.orchestrator)}
+							{getInfoRow("ETH signer", value?.eth_signer)}
+							{getInfoRow("Signature", value?.signature)}
+							{getInfoRow("Nonce", value?.nonce)}
+						</>
+					)}
+					{type === txTypes.ORAI_BRIDGE.MSG_REQUEST_BATCH && (
+						<>
+							{getAddressRow("Sender", value?.sender)}
+							{getInfoRow("Denom", value?.denom)}
+						</>
+					)}
+					{type === txTypes.ORAI_BRIDGE.MSG_EXECUTE_IBC_AUTO_FORWARDS && (
+						<>
+							{getAddressRow("Executor", value?.executor)}
+							{getInfoRow("Forwards To Clear", value?.forwards_to_clear)}
+						</>
+					)}
+					{type === txTypes.ORAI_BRIDGE.MSG_SEND_TO_ETH && (
+						<>
+							{getAddressRow("Sender", value?.sender)}
+							{getInfoRow("Eth Destination", value?.eth_dest)}
+							{getCurrencyRowFromObject("Amount", value?.amount, false, true)}
+							{getCurrencyRowFromObject("Bridge Fee", value?.bridge_fee, false, true)}
 						</>
 					)}
 				</div>
