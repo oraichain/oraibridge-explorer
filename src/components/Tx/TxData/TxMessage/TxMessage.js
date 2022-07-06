@@ -1,38 +1,56 @@
-import React, { useMemo, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, {useMemo, useEffect} from "react";
+import {NavLink} from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
 import ReactJson from "react-json-view";
 import PropTypes from "prop-types";
 import cn from "classnames/bind";
-import { Fade, Tooltip } from "@material-ui/core";
+import {Fade, Tooltip} from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { agate } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { foundation } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import BigNumber from "bignumber.js";
+import {agate} from "react-syntax-highlighter/dist/esm/styles/hljs";
+import {foundation} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import copy from "copy-to-clipboard";
 import Interweave from "interweave";
 import consts from "src/constants/consts";
 import txTypes from "src/constants/txTypes";
 import getTxTypeIcon from "src/constants/getTxTypeIcon";
-import { themeIds } from "src/constants/themes";
+import {themeIds} from "src/constants/themes";
 import useGithubSource from "src/hooks/useGithubSource";
-import { formatOrai, formatFloat, extractValueAndUnit, getTxTypeNew } from "src/helpers/helper";
-import { showAlert } from "src/store/modules/global";
-import { loadMore, loadAll } from "src/store/modules/txs";
-import { divide } from "src/lib/Big";
-import { _, tryParseMessage, setAgoTime, getTotalTime, reduceString, reduceStringAssets } from "src/lib/scripts";
+import {formatOrai, formatFloat, extractValueAndUnit} from "src/helpers/helper";
+import {showAlert} from "src/store/modules/global";
+import {loadMore, loadAll} from "src/store/modules/txs";
+import {divide} from "src/lib/Big";
+import {_, reduceString, reduceStringAssets} from "src/lib/scripts";
 import Address from "src/components/common/Address";
 import LinkRow from "src/components/common/LinkRow";
 import InfoRow from "src/components/common/InfoRow/InfoRow";
 import ThemedTable from "src/components/common/ThemedTable";
-import styles from "./TxMessage.module.scss";
+import TxMessageContent from "./TxMessageContent";
 import copyIcon from "src/assets/common/copy_ic.svg";
+import styles from "./TxMessage.module.scss";
+
 const cx = cn.bind(styles);
+
+const getTxTypeNew = (type, result = "", value) => {
+	const typeArr = type.split(".");
+	let typeMsg = typeArr[typeArr.length - 1];
+	if (typeMsg === "MsgExecuteContract" && result === "Success") {
+		if (value?.msg) {
+			for (let val in value?.msg) {
+				let attValue = val
+					.split("_")
+					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+					.join("");
+				typeMsg += "/" + attValue;
+			}
+		}
+	}
+	return typeMsg;
+};
 
 const tryParseMessageBinary = data => {
 	try {
@@ -42,26 +60,38 @@ const tryParseMessageBinary = data => {
 			if (obj[key].msg && typeof obj[key].msg === "string") {
 				try {
 					obj[key].msg = JSON.parse(atob(obj[key].msg));
-				} catch { }
+				} catch {}
 			}
 		}
 		return obj;
 	} catch (e) {
-		return { data };
+		return {data};
 	}
 };
 
-const TxMessage = ({ key, msg, data }) => {
+const TxMessage = ({key, msg, data}) => {
 	const dispatch = useDispatch();
 	const fees = useSelector(state => state.blockchain.fees);
 	const status = useSelector(state => state.blockchain.status);
 	const storageData = useSelector(state => state.contact);
 	const activeThemeId = useSelector(state => state.activeThemeId);
 	const loadMoreValue = useSelector(state => state.txs.loadMore);
-	const { data: storeCodeData, loading: loadingStoreCode, error: storeCodeError, fetch: fetchStoreCode } = useGithubSource();
+	const {data: storeCodeData, loading: loadingStoreCode, error: storeCodeError, fetch: fetchStoreCode} = useGithubSource();
 	const value = msg;
+
 	let type = msg["@type"] || "";
-	const { memo } = data;
+	const {memo} = data;
+	useEffect(() => {
+		if (type === txTypes.COSMOS_SDK.STORE_CODE) {
+			const loadStoreCode = async () => {
+				let source = msg?.source;
+				source = source?.split?.(" ")?.[0];
+				fetchStoreCode(source);
+			};
+
+			loadStoreCode();
+		}
+	}, [type, msg.source]);
 
 	const toolTippedImg = useMemo(() => {
 		const feeValue = !_.isNil(fees[type]?.fee) ? divide(fees[type].fee, consts.NUM.BASE_MULT) : "none";
@@ -69,7 +99,7 @@ const TxMessage = ({ key, msg, data }) => {
 			<Tooltip
 				placement='right-start'
 				TransitionComponent={Fade}
-				TransitionProps={{ timeout: 300 }}
+				TransitionProps={{timeout: 300}}
 				title={`Tx Fee: ${feeValue}${feeValue !== "none" ? ` BNB` : ""}`}
 				disableTouchListener
 				disableFocusListener>
@@ -79,13 +109,13 @@ const TxMessage = ({ key, msg, data }) => {
 	}, [type, fees]);
 
 	const messageDetails = useMemo(() => {
-		const getMultiSendHeaderRow = () => {
-			const validatorHeaderCell = <div className={cx("header-cell")}>Address</div>;
-			const amountHeaderCell = <div className={cx("header-cell")}>Amount</div>;
+		const getAmountHeaderRow = () => {
+			const validatorHeaderCell = <div className={cx("header-cell")}>Value</div>;
+			const amountHeaderCell = <div className={cx("header-cell")}>Denom</div>;
 			const headerCells = [validatorHeaderCell, amountHeaderCell];
 			const headerCellStyles = [
-				{ minWidth: "150px" }, // Address
-				{ minWidth: "150px" }, // Amount
+				{width: "50px"}, // Address
+				{width: "50px"}, // Amount
 			];
 
 			return {
@@ -94,6 +124,43 @@ const TxMessage = ({ key, msg, data }) => {
 			};
 		};
 
+		const getMultiSendHeaderRow = () => {
+			const validatorHeaderCell = <div className={cx("header-cell")}>Address</div>;
+			const amountHeaderCell = <div className={cx("header-cell")}>Amount</div>;
+			const headerCells = [validatorHeaderCell, amountHeaderCell];
+			const headerCellStyles = [
+				{minWidth: "150px"}, // Address
+				{minWidth: "150px"}, // Amount
+			];
+
+			return {
+				headerCells,
+				headerCellStyles,
+			};
+		};
+
+		const getAmountValidatorCommission = () => {
+			let value = "";
+			if (data) {
+				try {
+					const newData = JSON.parse(data?.raw_log)[1];
+					const item = newData?.events.find(val => val.type === "withdraw_commission");
+					if (item) {
+						const amountString = item?.attributes[0]?.value;
+						const amount = amountString.slice(0, -4);
+						const denom = amountString.slice(-4);
+						value = {
+							amount,
+							denom,
+						};
+					}
+				} catch (e) {
+					return value;
+				}
+			}
+			return value;
+		};
+		getAmountValidatorCommission();
 		const getMultiSendDataRows = data => {
 			if (!Array.isArray(data)) {
 				return [];
@@ -125,6 +192,72 @@ const TxMessage = ({ key, msg, data }) => {
 
 				return [addressDataCell, amountDataCell];
 			});
+		};
+
+		const getRoyaltyHeaderRow = () => {
+			const validatorHeaderCell = <div className={cx("header-cell")}>Address</div>;
+			const royaltyAmountHeaderCell = <div className={cx("header-cell")}>Royalty Amount</div>;
+			const newRoyalHeaderCell = <div className={cx("header-cell")}>Royalty Percentage</div>;
+			const headerCells = [validatorHeaderCell, royaltyAmountHeaderCell, newRoyalHeaderCell];
+			const headerCellStyles = [
+				{width: "110px"}, // Address
+				{width: "110px"}, // Royalty Amount
+				{width: "80px"}, // Royalty Percentage
+			];
+
+			return {
+				headerCells,
+				headerCellStyles,
+			};
+		};
+
+		const getRoyaltyDataRows = data => {
+			return data.map(item => {
+				const addressDataCell = _.isNil(item?.address) ? (
+					<div className={cx("align-center")}>-</div>
+				) : (
+					<NavLink className={cx("address-data-cell")} to={`${consts.PATH.ACCOUNT}/${item?.address}`}>
+						{item?.address_tag || item?.address}
+					</NavLink>
+				);
+
+				const royaltyAmountDataCell = (
+					<div className={cx("amount-data-cell")}>
+						<div className={cx("amount")}>
+							<span className={cx("amount-value")}>{item?.amount + " "}</span>
+							<span className={cx("amount-denom")}>ORAI</span>
+							<span className={cx("amount-usd")}>{status?.price ? " ($" + formatFloat(item?.amount * status.price, 4) + ")" : ""}</span>
+						</div>
+					</div>
+				);
+
+				const newRoyaltyDataCell = (
+					<div className={cx("amount-data-cell")}>
+						<div className={cx("amount")}>
+							<span className={cx("amount-value")}>{item?.newRoyalty + " "}</span>
+							<span className={cx("amount-denom")}>%</span>
+						</div>
+					</div>
+				);
+
+				return [addressDataCell, royaltyAmountDataCell, newRoyaltyDataCell];
+			});
+		};
+
+		const getMultiRoyaltyRow = (label, key = 0, rawLog = "[]", result = "") => {
+			const royalty = getRoyaltyDetail(key, rawLog, result);
+
+			return (
+				royalty.checkRoyalty && (
+					<InfoRow label={label}>
+						<ThemedTable
+							headerCellStyles={getRoyaltyHeaderRow()?.headerCellStyles}
+							headerCells={getRoyaltyHeaderRow()?.headerCells}
+							dataRows={getRoyaltyDataRows(royalty.royaltys)}
+						/>
+					</InfoRow>
+				)
+			);
 		};
 
 		const getInfoRow = (label, value) => (
@@ -172,7 +305,7 @@ const TxMessage = ({ key, msg, data }) => {
 				);
 			}
 
-			const { valueString, unitString } = extractValueAndUnit(inputString);
+			const {valueString, unitString} = extractValueAndUnit(inputString);
 			const amount = parseFloat(valueString);
 			const denom = unitString;
 
@@ -191,31 +324,22 @@ const TxMessage = ({ key, msg, data }) => {
 			return events.find(event => event.type === type);
 		};
 
-		const getCurrencyRowFromObject = (label, inputObject, keepOriginValue = false) => {
-			// if (_.isNil(inputObject?.amount) || _.isNil(inputObject?.denom)) {
-			// 	return null;
-			// (
-
-			// <InfoRow label={label}>
-			// 	<span>-</span>
-			// </InfoRow>
-			// );
-			// }
-			if (inputObject.length <= 0) {
-				return null;
-			}
-
-			const { amount, denom, denom_name } = inputObject[0] ? inputObject[0] : inputObject;
+		const handleCurrencyData = ({label, denom, denom_name, amount, keepOriginValue}) => {
 			let finalDenom = denom;
 			if (denom !== consts.DENOM) {
-				const logs = JSON.parse(data.raw_log);
-				const ibcTransferEvent = parseRawEvents(logs[0].events, "send_packet");
-				// process denom for msg transfer case
-				if (ibcTransferEvent) {
-					const packetData = JSON.parse(ibcTransferEvent.attributes.find(attr => attr.key === "packet_data").value).denom;
-					finalDenom = packetData.split("/")[2]; // syntax: transfer/channel-15/uatom. trim the first character and upper everything
-					if (finalDenom.charAt(0) === "u") finalDenom = finalDenom.substring(1).toUpperCase();
-					else finalDenom = finalDenom.toUpperCase();
+				var logs;
+				try {
+					const logs = JSON.parse(data.raw_log);
+					const ibcTransferEvent = parseRawEvents(logs[0].events, "send_packet");
+					// process denom for msg transfer case
+					if (ibcTransferEvent) {
+						const packetData = JSON.parse(ibcTransferEvent.attributes.find(attr => attr.key === "packet_data").value).denom;
+						finalDenom = packetData.split("/")[2]; // syntax: transfer/channel-15/uatom. trim the first character and upper everything
+						if (finalDenom.charAt(0) === "u") finalDenom = finalDenom.substring(1).toUpperCase();
+						else finalDenom = finalDenom.toUpperCase();
+					}
+				} catch (error) {
+					console.log("get currency row from object error: ", error);
 				}
 			}
 			// const priceInUSD = new BigNumber(amount || 0).multipliedBy(status?.price || 0).toFormat(2);
@@ -228,20 +352,58 @@ const TxMessage = ({ key, msg, data }) => {
 				calculatedValue = amount / 1000000;
 				formatedAmount = formatOrai(amount);
 			}
-
-			return (
-				<InfoRow label={label}>
-					<div className={cx("amount")}>
-						<span className={cx("amount-value")}>{formatedAmount + " "}</span>
-						<span className={cx("amount-denom")}>
-							{denom_name || (finalDenom && String(finalDenom).toLowerCase() === consts.DENOM ? finalDenom : consts.MORE)}
-						</span>
-						{finalDenom === consts.DENOM && (
-							<span className={cx("amount-usd")}>{status?.price ? " ($" + formatFloat(calculatedValue * status.price, 4) + ")" : ""}</span>
-						)}
-					</div>
-				</InfoRow>
+			const amountValue = <span className={cx("amount-value")}>{formatedAmount + " "}</span>;
+			const amountDenom = (
+				<span className={cx("amount-denom")}>{denom_name || (finalDenom && String(finalDenom).toLowerCase() === consts.DENOM ? finalDenom : consts.MORE)}</span>
 			);
+			const amountUsd = (
+				<>
+					{finalDenom === consts.DENOM && (
+						<span className={cx("amount-usd")}>{status?.price ? " ($" + formatFloat(calculatedValue * status.price, 4) + ")" : ""}</span>
+					)}
+				</>
+			);
+			return {amountValue, amountDenom, amountUsd};
+		};
+
+		const handleConditionAmount = (label, inputObject, keepOriginValue = false) => {
+			if (Array.isArray(inputObject) && inputObject.length > 1) {
+				const dataRows = inputObject.map(val => {
+					const {amount, denom, denom_name} = val;
+					const {amountValue, amountDenom, amountUsd} = handleCurrencyData({label, denom, denom_name, amount, keepOriginValue});
+					const amountCell = (
+						<div className={cx("amount")}>
+							{amountValue}
+							{amountDenom}
+						</div>
+					);
+					return [amountCell, amountDenom];
+				});
+
+				return (
+					<div style={{maxWidth: "50%"}}>
+						<ThemedTable headerCellStyles={getAmountHeaderRow()?.headerCellStyles} headerCells={getAmountHeaderRow()?.headerCells} dataRows={dataRows} />
+					</div>
+				);
+			} else {
+				const {amount, denom, denom_name} = inputObject[0] ? inputObject[0] : inputObject;
+				const {amountValue, amountDenom, amountUsd} = handleCurrencyData({label, denom, denom_name, amount, keepOriginValue});
+				return (
+					<div className={cx("amount")}>
+						{amountValue}
+						{amountDenom}
+						{amountUsd}
+					</div>
+				);
+			}
+		};
+
+		const getCurrencyRowFromObject = (label, inputObject, keepOriginValue = false) => {
+			if (inputObject.length <= 0) {
+				return null;
+			}
+			const amountData = handleConditionAmount(label, inputObject, keepOriginValue);
+			return <InfoRow label={label}>{amountData}</InfoRow>;
 		};
 
 		const getImageRow = (label, src) => (
@@ -317,6 +479,83 @@ const TxMessage = ({ key, msg, data }) => {
 			);
 		};
 
+		if (type === "websocket/AddReport") {
+			return null;
+		}
+
+		let storeCodeElement;
+		if (type === txTypes.COSMOS_SDK.STORE_CODE) {
+			if (loadingStoreCode) {
+				storeCodeElement = <Skeleton className={cx("skeleton-block")} variant='rect' height={200} />;
+			} else {
+				if (storeCodeError) {
+					storeCodeElement = <div>-</div>;
+				} else {
+					if (Array.isArray(storeCodeData)) {
+						storeCodeElement = storeCodeData.map((item, index) => {
+							return (
+								<div className={cx("code-container")}>
+									<Accordion key={"code-" + index}>
+										<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+											<div className={cx("code-name")}>{item?.name ?? "-"}</div>
+											<img
+												src={copyIcon}
+												alt=''
+												className={cx("code-copy")}
+												onClick={e => {
+													copy(item?.content ?? "-");
+													dispatch(
+														showAlert({
+															show: true,
+															message: "Copied",
+															autoHideDuration: 1500,
+														})
+													);
+													e.stopPropagation();
+												}}
+											/>
+										</AccordionSummary>
+										<AccordionDetails>
+											<SyntaxHighlighter
+												customStyle={{background: "none", overflow: "auto", width: "100%"}}
+												language='rust'
+												style={activeThemeId === themeIds.LIGHT ? foundation : agate}>
+												{item?.content ?? "-"}
+											</SyntaxHighlighter>
+										</AccordionDetails>
+									</Accordion>
+								</div>
+							);
+						});
+					} else {
+						storeCodeElement = <div>-</div>;
+					}
+				}
+			}
+		}
+
+		const getContractAddress = rawLogString => {
+			try {
+				const rawLogObj = JSON.parse(rawLogString);
+				const messageEvent = rawLogObj[0].events.find(event => event?.type === "message");
+
+				if (_.isNil(messageEvent)) {
+					return "-";
+				}
+
+				const contractAddressObj = messageEvent?.attributes?.find(attribute => attribute.key === "contract_address");
+
+				if (_.isNil(contractAddressObj)) {
+					return "-";
+				}
+
+				const contractAddress = contractAddressObj.value;
+				return contractAddress;
+			} catch (err) {
+				return "-";
+			}
+		};
+
 		const getSubmitProposalContent = proposalType => {
 			switch (proposalType) {
 				case "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":
@@ -324,7 +563,7 @@ const TxMessage = ({ key, msg, data }) => {
 						<>
 							<InfoRow label='Plan'>
 								<ReactJson
-									style={{ backgroundColor: "transparent" }}
+									style={{backgroundColor: "transparent"}}
 									name={false}
 									theme={activeThemeId === themeIds.DARK ? "monokai" : "rjv-default"}
 									displayObjectSize={false}
@@ -339,7 +578,7 @@ const TxMessage = ({ key, msg, data }) => {
 						<>
 							<InfoRow label='Changes'>
 								<ReactJson
-									style={{ backgroundColor: "transparent" }}
+									style={{backgroundColor: "transparent"}}
 									name={false}
 									theme={activeThemeId === themeIds.DARK ? "monokai" : "rjv-default"}
 									displayObjectSize={false}
@@ -360,9 +599,9 @@ const TxMessage = ({ key, msg, data }) => {
 			const amountHeaderCell = <div className={cx("header-cell")}>Amount</div>;
 			const headerCells = [recipientHeaderCell, senderHeaderCell, amountHeaderCell];
 			const headerCellStyles = [
-				{ width: "326px" }, // Recipient
-				{ width: "326px" }, // Sender
-				{ minWidth: "80px" }, // Amount
+				{width: "326px"}, // Recipient
+				{width: "326px"}, // Sender
+				{minWidth: "80px"}, // Amount
 			];
 
 			return {
@@ -376,8 +615,8 @@ const TxMessage = ({ key, msg, data }) => {
 			const amountHeaderCell = <div className={cx("header-cell")}>Amount</div>;
 			const headerCells = [denomHeaderCell, amountHeaderCell];
 			const headerCellStyles = [
-				{ width: "652px" }, // Demon
-				{ minWidth: "80px" }, // Amount
+				{width: "652px"}, // Demon
+				{minWidth: "80px"}, // Amount
 			];
 
 			return {
@@ -399,7 +638,7 @@ const TxMessage = ({ key, msg, data }) => {
 						for (let att of event["attributes"]) {
 							if (att["key"] === "recipient") {
 								start = true;
-								obj = { recipient: att["value"] };
+								obj = {recipient: att["value"]};
 								continue;
 							}
 
@@ -435,13 +674,13 @@ const TxMessage = ({ key, msg, data }) => {
 					}
 				}
 			}
-			return { checkTransfer: checkTransfer, transfers: msgTransfer };
+			return {checkTransfer: checkTransfer, transfers: msgTransfer};
 		};
 
 		const processText = inputText => {
 			let output = [];
 			let json = inputText.split(" ");
-			json.forEach(function (item) {
+			json.forEach(function(item) {
 				output.push(
 					item
 						.replace(/\'/g, "")
@@ -554,7 +793,6 @@ const TxMessage = ({ key, msg, data }) => {
 				const amountDataCell = (
 					<div className={cx("amount-data-cell")}>
 						<div className={cx("amount")}>
-							{console.log({ item, denomSplit })}
 							<span className={cx("amount-value")}>{item?.amount ? item?.amount / Math.pow(10, 6) : "0"}</span>
 							<span className={cx("amount-denom")}>{item?.denom_name || item?.denom || denomSplit?.[0]}</span>
 							{/* <span className={cx("amount-denom")}>{reduceStringAssets(item?.denom_name) || reduceStringAssets(item?.demom) || reduceStringAssets(denomSplit?.[0])}</span> */}
@@ -569,330 +807,78 @@ const TxMessage = ({ key, msg, data }) => {
 			});
 		};
 
+		const getRoyaltyDetail = (key = 0, rawLog = "[]", result = "") => {
+			let royaltys = [];
+			let checkRoyaltyAmount = false;
+			if (result === "Success") {
+				let rawLogArr = JSON.parse(rawLog);
+				for (let index = rawLogArr[key].events.length - 1; index > -1; index--) {
+					const event = rawLogArr[key].events[index];
+					if (event["type"] === "wasm") {
+						for (let att of event["attributes"]) {
+							if (att["key"] === "action" && att["value"] === "pay_royalty") {
+								checkRoyaltyAmount = true;
+								continue;
+							}
+
+							if (att["key"] === "action" && att["value"] === "finish_pay_royalty") {
+								break;
+							}
+
+							if (checkRoyaltyAmount && att["key"].startsWith("royalty_")) {
+								const royaltyInfoArr = att["key"].split("_");
+								const index = att["value"].indexOf("orai");
+								const royaltyAmount = index !== -1 ? att["value"].slice(0, index) : att["value"];
+								const obj = {
+									address: royaltyInfoArr[1] ? royaltyInfoArr[1] : "0",
+									amount: formatOrai(royaltyAmount),
+									newRoyalty: formatOrai(royaltyInfoArr[2] ? royaltyInfoArr[2] : 0, 10000000, 2),
+								};
+
+								royaltys.push(obj);
+							}
+						}
+
+						break;
+					}
+				}
+			}
+
+			return {checkRoyalty: checkRoyaltyAmount, royaltys: royaltys};
+		};
+
 		return (
 			<>
-				<div className={cx("card-header")}>
-					{/* {toolTippedImg} */}
-					<span className={cx("title")}>{getTxTypeNew(type, data?.result, value)}</span>
-				</div>
-				<div className={cx("card-body")}>
-					{type === txTypes.COSMOS_SDK.MSG_CREATE_VALIDATOR && (
-						<>
-							{getAddressRow("Delegator Address", value?.delegator_address, value?.delegator_address_tag)}
-							{getAddressRow("Validator Address", value?.validator_address)}
-							{getCurrencyRowFromObject("Amount", value?.value)}
-							{getInfoRow("Min Self Delegation", value?.min_self_delegation)}
-							<div className={cx("card")}>
-								<div className={cx("card-header")}>Pubkey</div>
-								<div className={cx("card-body")}>
-									{getInfoRow("Type", value?.pubkey?.type)}
-									{getInfoRow("Value", value?.pubkey?.value)}
-								</div>
-							</div>
-							<div className={cx("card")}>
-								<div className={cx("card-header")}>Commission</div>
-								<div className={cx("card-body")}>
-									{getInfoRow("Rate", formatFloat(value?.commission?.rate, 6))}
-									{getInfoRow("Max Rate", formatFloat(value?.commission?.max_rate, 6))}
-								</div>
-							</div>
-							<div className={cx("card")}>
-								<div className={cx("card-header")}>Description</div>
-								<div className={cx("card-body")}>
-									{getInfoRow("Details", value?.description?.details)}
-									{getInfoRow("Moniker", value?.description?.moniker)}
-									{getWebsiteRow("Website", value?.description?.website)}
-									{getInfoRow("Identity", value?.description?.identity)}
-									{getInfoRow("Security Contact", value?.description?.security_contact)}
-								</div>
-							</div>
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_DELEGATE && (
-						<>
-							{getAddressRow("Delegator Address", value?.delegator_address, value?.delegator_address_tag)}
-							{getAddressRow("Validator Address", value?.validator_address)}
-							{getCurrencyRowFromObject("Amount", value?.amount)}
-						</>
-					)}
-					.
-					{type === txTypes.COSMOS_SDK.MSG_UNDELEGATE && (
-						<>
-							{getAddressRow("Delegator Address", value?.delegator_address, value?.delegator_address_tag)}
-							{getAddressRow("Validator Address", value?.validator_address)}
-							{getCurrencyRowFromObject("Amount", value?.amount)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_SEND && (
-						<>
-							{getAddressRow("From Address", value?.from_address, value?.from_address_tag)}
-							{getAddressRow("To Address", value?.to_address, value?.to_address_tag)}
-							{getCurrencyRowFromObject("Amount", value?.amount?.[0])}
-							{getInfoRow("Memo", memo)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_MULTI_SEND && (
-						<>
-							{getAddressRow("From Address", value?.inputs?.[0]?.address, value?.inputs?.[0]?.address_tag)}
-							{getCurrencyRowFromObject("Total Amount", value?.inputs?.[0]?.coins?.[0])}
-							{getMultiAddressRow("To Address", value?.outputs)}
-							{getInfoRow("Memo", memo)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_EDIT_VALIDATOR && (
-						<>
-							{getAddressRow("Validator Address", value?.validator_address)}
-							{getInfoRow("Commission Rate", new BigNumber(value?.commission_rate || 0).toFixed(6))}
-							<div className={cx("card")}>
-								<div className={cx("card-header")}>Description</div>
-								<div className={cx("card-body")}>
-									{getInfoRow("Details", value?.description?.details)}
-									{getInfoRow("Moniker", value?.description?.moniker)}
-									{getWebsiteRow("Website", value?.description?.website)}
-									{getInfoRow("Identity", value?.description?.identity)}
-									{getInfoRow("Security Contact", value?.description?.security_contact)}
-								</div>
-							</div>
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_WITHDRAW_DELEGATOR_REWARD && (
-						<>
-							{getAddressRow("Delegator Address", value?.delegator_address, value?.delegator_address_tag)}
-							{getAddressRow("Validator Address", value?.validator_address)}
-							{getCurrencyRowFromObject("Amount", value?.amount)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_WITHDRAW_VALIDATOR_COMMISSION && <>{getAddressRow("Validator Address", value?.validator_address)}</>}
-					{type === txTypes.COSMOS_SDK.MSG_VOTE && (
-						<>
-							{getInfoRow("Option", value?.option)}
-							{getLinkRow("Proposal ID", "Proposal", value?.proposal_id, `/proposals/${value?.proposal_id}`)}
-							{getAddressRow("Voter", value?.voter, value?.voter_tag)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_IBC_TRANSFER && (
-						<>
-							{getInfoRow("Source Port", value?.source_port)}
-							{getInfoRow("Source Channel", value?.source_channel)}
-							{/* {getCurrencyRowFromObject("Amount", value?.sent_funds?.[0])} */}
-							{getCurrencyRowFromObject("Token", value?.amount)}
-							{getAddressRow("Sender", value?.sender)}
-							{getAddressRow("Receiver", value?.receiver)}
-							{getInfoRow("Timeout Height", value?.timeout_height?.revision_height)}
-							{getInfoRow("Timeout Timestamp", value?.timeout_timestamp)}
-							{/* <InfoRow label='Message'>
-							<ReactJson
-								style={{ backgroundColor: "transparent" }}
-								name={false}
-								theme={activeThemeId === themeIds.DARK ? "monokai" : "rjv-default"}
-								displayObjectSize={false}
-								displayDataTypes={false}
-								src={tryParseMessage(value?.msg)}
-							/>
-						</InfoRow> */}
-							{/* {getTransferRow("Transfer", key, data?.raw_log, data?.result)}
-						{getMultiRoyaltyRow("Royalty", key, data?.raw_log, data?.result)} */}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_IBC_UPDATE_CLIENT && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Client ID", value?.client_id)}
-							{getInfoRow("Block", value?.header.signed_header.header.version.block)}
-							{getInfoRow("App", value?.header.signed_header.header.version.app)}
-							{getInfoRow("Chain ID", value?.header.signed_header.header.chain_id)}
-							{getInfoRow("Height", value?.header.signed_header.header.height)}
-							{getInfoRow("Time", value?.header.signed_header.header.time)}
-							{getInfoRow("Last Commit Hash", value?.header.signed_header.header.last_commit_hash)}
-							{getInfoRow("Data Hash", value?.header.signed_header.header.data_hash)}
-							{getInfoRow("Validators Hash", value?.header.signed_header.header.validators_hash)}
-							{getInfoRow("Next Validators Hash", value?.header.signed_header.header.next_validators_hash)}
-							{getInfoRow("Consensus Hash", value?.header.signed_header.header.consensus_hash)}
-							{getInfoRow("App Hash", value?.header.signed_header.header.app_hash)}
-							{getInfoRow("Last Results Hash", value?.header.signed_header.header.last_results_hash)}
-							{getInfoRow("Evidence Hash", value?.header.signed_header.header.evidence_hash)}
-							{getInfoRow("Proposer Address", value?.header.signed_header.header.proposer_address)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_IBC_RECV_PACKET && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Sequence", value?.packet.sequence)}
-							{getInfoRow("Source Channel", value?.packet.source_channel)}
-							{getInfoRow("Destination Channel", value?.packet.destination_channel)}
-							{getInfoRow("Proof Height", value?.proof_height.revision_height)}
-							{getIbcReceivedRows(value?.packet.data)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_SUBMIT_PROPOSAL && (
-						<>
-							{getAddressRow("Proposer", value?.proposer, value?.proposer_tag)}
-							{value?.content && getInfoRow("Proposal type", value?.content["@type"])}
-							{getInfoRow("Title", value?.content?.title)}
-							{getHtmlRow("Description", value?.content?.description)}
-							{value?.content && getSubmitProposalContent(value?.content["@type"])}
-							{getCurrencyRowFromObject("Initial deposit", value?.initial_deposit?.[0])}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_DEPOSIT && (
-						<>
-							{getAddressRow("Depositor", value?.depositor, value?.depositor_tag)}
-							{getCurrencyRowFromObject("Amount", value?.amount?.[0])}
-							{getLinkRow("Proposal ID", "Proposal", value?.proposal_id, `/proposals/${value?.proposal_id}`)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_BEGIN_REDELEGATE && (
-						<>
-							{getAddressRow("Delegator Address", value?.delegator_address, "")}
-							{getAddressRow("Source Validator", value?.validator_src_address, "")}
-							{getAddressRow("Destination Validator", value?.validator_dst_address, "")}
-							{getCurrencyRowFromObject("Amount", value?.amount)}
-							{/* <InfoRow label='Time'>
-							<div className={cx("text")}>
-								{_.isNil(getRedelegateTime(key, data?.raw_log, data?.result))
-									? "-"
-									: setAgoTime(getRedelegateTime(key, data?.raw_log, data?.result)) +
-									" (" +
-									getTotalTime(getRedelegateTime(key, data?.raw_log, data?.result)) +
-									")"}
-							</div>
-						</InfoRow> */}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CONNECTION_OPEN_CONFIRM && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Connection ID", value?.connection_id)}
-							{getInfoRow("Height", value?.proof_height?.revision_height)}
-							{getInfoRow("Number", value?.proof_height?.revision_number)}
-							{getInfoRowSummary("Proof Ack", value?.proof_ack)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CREATE_CLIENT && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Chain ID", value?.client_state?.chain_id)}
-							{/* {getInfoRow("Trusting", value?.client_state?.trusting_period)} */}
-							{/* {getInfoRow("Unbonding", value?.client_state?.unbonding_period)} */}
-							{getInfoRow("Height", value?.client_state?.latest_height?.revision_height)}
-							{getInfoRow("Revision", value?.client_state?.latest_height?.revision_number)}
-							{getInfoRow("Next Validators Hash", value?.consensus_state?.next_validators_hash)}
-							{getInfoRow("Max Clock Drift", value?.client_state?.max_clock_drift)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CONNECTION_OPEN_TRY && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Chain ID", value?.client_state?.chain_id)}
-							{getInfoRow("Height", value?.client_state?.latest_height?.revision_height)}
-							{/* {getInfoRow("Revision", value?.client_state?.latest_height?.revision_number)} */}
-							{getInfoRow("Max Clock Drift", value?.client_state?.max_clock_drift)}
-							{getInfoRowSummary("Proof Client", value?.proof_client)}
-							{getInfoRowSummary("Proof Consensus", value?.proof_consensus)}
-							{getInfoRowSummary("Proof Init", value?.proof_init)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CHANNEL_OPEN_TRY && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Port ID", value?.port_id)}
-							{getInfoRow("Counterparty Version", value?.counterparty_version)}
-							{getInfoRow("Channel ID", value?.channel?.counterparty?.channel_id)}
-							{getInfoRowSummary("Proof Init", value?.proof_init)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CHANNEL_OPEN_CONFIRM && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Port ID", value?.port_id)}
-							{getInfoRow("Channel ID", value?.channel_id)}
-							{getInfoRowSummary("Proof Ack", value?.proof_ack)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CONNECT_OPEN_INIT && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Client ID", value?.client_id)}
-							{getInfoRow("Delay", value?.delay_period)}
-							{getInfoRow("Connection ID", value?.connection_id)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CONNECTION_OPEN_ACK && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Chain ID", value?.client_state?.chain_id)}
-							{getInfoRow("Connection ID", value?.connection_id)}
-							{getInfoRowSummary("Proof Client", value?.proof_client)}
-							{getInfoRowSummary("Proof Consensus", value?.proof_consensus)}
-							{getInfoRowSummary("Proof Try", value?.proof_try)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CHANNEL_OPEN_INIT && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Port ID", value?.port_id)}
-							{getInfoRowSummary("Version", value?.channel?.version)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CHANNEL_OPEN_ACK && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Port ID", value?.port_id)}
-							{getInfoRow("Channel ID", value?.channel_id)}
-							{getInfoRow("Version", value?.counterparty_version)}
-							{getInfoRowSummary("Proof Try", value?.proof_try)}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_CHANNEL_ACKNOWLEDGEMENT && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Sequence", value?.packet.sequence)}
-							{getInfoRow("Source Port", value?.packet?.source_port)}
-							{getInfoRow("Source Channel", value?.packet?.source_channel)}
-							{getInfoRow("Desination Port", value?.packet?.destination_port)}
-							{getInfoRow("Desination Channel", value?.packet?.destination_channel)}
-							<InfoRow label='Data'>
-								<ReactJson
-									style={{ backgroundColor: "transparent" }}
-									name={false}
-									theme={activeThemeId === themeIds.DARK ? "monokai" : "rjv-default"}
-									displayObjectSize={false}
-									displayDataTypes={false}
-									src={JSON.parse(atob(value?.packet?.data))}
-								/>
-							</InfoRow>
-							{getInfoRow("Revision Number", value?.packet?.timeout_height?.revision_number)}
-							{getInfoRow("Revision Height", value?.packet?.timeout_height?.revision_height)}
-							{getInfoRow("Proof Number", value?.proof_height?.revision_number)}
-							{getInfoRow("Proof Height", value?.proof_height?.revision_height)}
-							{getInfoRow("Timeout Timestamp", new Date(value?.packet?.timeout_timestamp / Math.pow(10, 9)).toTimeString())}
-						</>
-					)}
-					{type === txTypes.COSMOS_SDK.MSG_TIMEOUT && (
-						<>
-							{getAddressRow("Signer", value?.signer)}
-							{getInfoRow("Sequence", value?.packet?.sequence)}
-							{getInfoRow("Next Sequence Recv", value?.next_sequence_recv)}
-							{getInfoRow("Destination Channel", value?.packet?.destination_channel)}
-							{getInfoRow("Destination Port", value?.packet?.destination_port)}
-							{getInfoRow("Source Channel", value?.packet?.source_channel)}
-							{getInfoRow("Source Port", value?.packet?.source_port)}
-							{getInfoRow("Height", value?.proof_height?.revision_height)}
-							{getInfoRow("Timeout Timestamp", new Date(value?.packet?.timeout_timestamp / Math.pow(10, 9)).toTimeString())}
-							{getInfoRowThreeDots("Unreceived", value?.proof_unreceived)}
-							<InfoRow label='Message'>
-								<ReactJson
-									style={{ backgroundColor: "transparent" }}
-									name={false}
-									theme={activeThemeId === themeIds.DARK ? "monokai" : "rjv-default"}
-									displayObjectSize={false}
-									displayDataTypes={false}
-									src={JSON.parse(atob(value?.packet?.data))}
-								/>
-							</InfoRow>
-						</>
-					)}
-				</div>
+				<TxMessageContent
+					type={type}
+					txTypes={txTypes}
+					data={data}
+					value={value}
+					memo={memo}
+					getTxTypeNew={getTxTypeNew}
+					getAddressRow={getAddressRow}
+					getCurrencyRowFromObject={getCurrencyRowFromObject}
+					getCurrencyRowFromString={getCurrencyRowFromString}
+					getInfoRow={getInfoRow}
+					getInfoRowSummary={getInfoRowSummary}
+					getWebsiteRow={getWebsiteRow}
+					getLinkRow={getLinkRow}
+					getContractAddress={getContractAddress}
+					getFundsRow={getFundsRow}
+					getHtmlRow={getHtmlRow}
+					getMultiAddressRow={getMultiAddressRow}
+					getAmountValidatorCommission={getAmountValidatorCommission}
+					getIbcReceivedRows={getIbcReceivedRows}
+					getTransferRow={getTransferRow}
+					getMultiRoyaltyRow={getMultiRoyaltyRow}
+					getSubmitProposalContent={getSubmitProposalContent}
+					getInfoRowThreeDots={getInfoRowThreeDots}
+					tryParseMessageBinary={tryParseMessageBinary}
+					activeThemeId={activeThemeId}
+					themeIds={themeIds}
+					key={key}
+					storeCodeElement={storeCodeElement}
+				/>
 			</>
 		);
 	}, [type, value, storageData, activeThemeId, loadingStoreCode, status, storeCodeData, storeCodeError, memo, dispatch, data, loadMoreValue]);
