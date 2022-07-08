@@ -37,3 +37,4 @@ src/firebase.js
 hosting*
 .devcontainer
 .scannerwork
+vendor

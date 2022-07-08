@@ -56,7 +56,7 @@ const TABS = [
 	},
 ];
 
-const FormDialog = memo(({ show, handleClose, address, account, amount, amountAiri }) => {
+const FormDialog = memo(({ show, handleClose, address, account, amount }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [activeTabId, setActiveTabId] = useState(1);
 	const [multiSendData, handleInputMulti] = useState(null);

@@ -31,6 +31,15 @@ export default Object.freeze({
 		MSG_TIMEOUT: "/ibc.core.channel.v1.MsgTimeout"
 	},
 
+	ORAI_BRIDGE: {
+		MSG_BATCH_SEND_TO_ETH_CLAIM: "/gravity.v1.MsgBatchSendToEthClaim",
+		MSG_BATCH_SEND_TO_COSMOS_CLAIM: "/gravity.v1.MsgSendToCosmosClaim",
+		MSG_CONFIRM_BATCH: "/gravity.v1.MsgConfirmBatch",
+		MSG_REQUEST_BATCH: "/gravity.v1.MsgRequestBatch",
+		MSG_EXECUTE_IBC_AUTO_FORWARDS: "/gravity.v1.MsgExecuteIbcAutoForwards",
+		MSG_SEND_TO_ETH: "/gravity.v1.MsgSendToEth",
+	},
+
 	//  DEX
 	DEX: {
 		ORDER_NEW: "dex/NewOrder",

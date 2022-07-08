@@ -29,6 +29,8 @@ export default Object.freeze({
 	MIN_MAINTAINANCE: 200,
 	NUM: {
 		BASE_MULT: 100000000,
+		COSMOS_DECIMAL: 1000000,
+		ETH_DECIMAL: 1000000000000000000,
 		DEFAULT_DECIMALS: 8,
 		PAGE_SIZE: 20,
 		SPARE_PAGE_CNT: 2, //  amount of pages to preload in pagination
