@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import classNames from "classnames/bind";
 import {tableThemes} from "src/constants/tableThemes";
 import ThemedTable from "src/components/common/ThemedTable";
-import styles from "./ContactTable.scss";
+import styles from "./ContactTable.module.scss";
 import _ from "lodash";
 import consts from "src/constants/consts";
 

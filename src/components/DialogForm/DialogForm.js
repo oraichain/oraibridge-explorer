@@ -11,8 +11,8 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import _ from "lodash";
-import styles from "./DialogForm.scss";
 import MemoFee from "src/components/common/MemoFee";
+import styles from "./DialogForm.module.scss";
 
 const cx = cn.bind(styles);
 

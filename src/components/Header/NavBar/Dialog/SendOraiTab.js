@@ -18,21 +18,25 @@ import {Fee, Gas} from "src/components/common/Fee";
 import AddAddressDialog from "./AddAddressDialog";
 import ShowExample from "./ShowExample";
 import SelectFile from "./SelectFile";
+import styles from "./Dialog.module.scss";
 import "./SendOraiTab.css";
-import styles from "./Dialog.scss";
 import {useSelector} from "src/hooks";
 import MemoFee from "src/components/common/MemoFee";
 const cx = cn.bind(styles);
 const {TextArea: TextAreaAnt} = Input;
 
 const calculateAmount = (balance, percent) => {
-	let result = balance.multipliedBy(percent).dividedBy(1000000).toFixed(6) + "";
+	let result =
+		balance
+			.multipliedBy(percent)
+			.dividedBy(1000000)
+			.toFixed(6) + "";
 	result = result.split(".")[0];
 	result = new BigNumber(result).dividedBy(100).toString();
 	return result;
 };
 
-export default function FormDialog({address, amount, status, methods,fee, handleInputMulti, minFee, handleChangeGas, handleChangeFee}) {
+export default function FormDialog({address, amount, status, methods, fee, handleInputMulti, minFee, handleChangeGas, handleChangeFee}) {
 	const [inputAmountValue, setInputAmountValue] = useState("");
 	const [isMulti, setIsMulti] = useState(false);
 	const [isChooseFile, setIsChooseFile] = useState(true);
@@ -135,7 +139,7 @@ export default function FormDialog({address, amount, status, methods,fee, handle
 								</div>
 							);
 						})}
-						<MemoFee fee={fee} minFee={minFee} setFee={handleChangeFee} onChangeGas={onChangeGas} gas={gas} checkFee={false}  />
+						<MemoFee fee={fee} minFee={minFee} setFee={handleChangeFee} onChangeGas={onChangeGas} gas={gas} checkFee={false} />
 					</div>
 					{renderSwitchBtn()}
 				</>
@@ -262,10 +266,10 @@ export default function FormDialog({address, amount, status, methods,fee, handle
 								</button>
 							</div>
 						</div>
-						<InputNumberOrai inputAmountValue={inputAmountValue} typePrice={"orai"} name="sendAmount" errorobj={errors} />
+						<InputNumberOrai inputAmountValue={inputAmountValue} typePrice={"orai"} name='sendAmount' errorobj={errors} />
 					</Grid>
 					<Grid item xs={12} className={cx("form-input")}>
-						<MemoFee fee={fee} minFee={minFee} setFee={handleChangeFee} onChangeGas={onChangeGas} gas={gas} checkFee={true} amount={getValues("sendAmount")}/>
+						<MemoFee fee={fee} minFee={minFee} setFee={handleChangeFee} onChangeGas={onChangeGas} gas={gas} checkFee={true} amount={getValues("sendAmount")} />
 					</Grid>
 					{/* <div className={cx("select-gas", "select-gas-custom")}>
 						<span className={cx("gas-span")}> Gas </span>

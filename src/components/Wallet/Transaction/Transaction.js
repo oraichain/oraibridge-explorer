@@ -1,6 +1,6 @@
-import React, { memo, useState } from "react";
-import { useGet } from "restful-react";
-import { useTheme } from "@material-ui/core/styles";
+import React, {memo, useState} from "react";
+import {useGet} from "restful-react";
+import {useTheme} from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import classNames from "classnames/bind";
 import consts from "src/constants/consts";
@@ -10,17 +10,17 @@ import TransactionCardList from "src/components/TxList/TransactionCardList";
 import TransactionCardListSkeleton from "src/components/TxList/TransactionCardList/TransactionCardListSkeleton";
 import Pagination from "src/components/common/Pagination";
 import NoResult from "src/components/common/NoResult";
-import styles from "./Transaction.scss";
+import styles from "./Transaction.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Transaction = memo(({ account = "", royalty = false, minHeight = 222 }) => {
+const Transaction = memo(({account = "", royalty = false, minHeight = 222}) => {
 	const theme = useTheme();
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 	let basePath = `${consts.API.TXS_ACCOUNT}/${account}?limit=${consts.REQUEST.LIMIT}`;
 
 	const [path, setPath] = useState(`${basePath}&page_id=1`);
-	const { data } = useGet({
+	const {data} = useGet({
 		path: path,
 	});
 

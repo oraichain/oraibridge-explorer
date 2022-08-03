@@ -1,12 +1,12 @@
 import React, {useMemo} from "react";
 import cn from "classnames/bind";
-import styles from "./TxTable.scss";
 import {_, empty} from "src/lib/scripts";
 import consts from "src/constants/consts";
 //  components
 import {Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
 import TxTableRows, {ThinTableRow} from "../TxTableRows";
 import Spinner from "src/components/common/Spinner/Spinner";
+import styles from "./TxTable.module.scss";
 
 const cx = cn.bind(styles);
 

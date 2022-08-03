@@ -1,6 +1,6 @@
 import React from "react";
 import cn from "classnames/bind";
-import styles from "./AssetList.scss";
+import styles from "./AssetList.module.scss";
 import {_, empty} from "src/lib/scripts";
 //  redux
 import {useDispatch, useSelector} from "react-redux";

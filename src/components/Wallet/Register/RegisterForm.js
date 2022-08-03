@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
-import { FormControl, InputLabel, Input, Button, FormHelperText, Tooltip } from "@material-ui/core";
+import {FormControl, InputLabel, Input, Button, FormHelperText, Tooltip} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import cn from "classnames/bind";
-import { useForm, FormProvider } from "react-hook-form";
+import {useForm, FormProvider} from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 import * as bech32 from "bech32-buffer";
 import BigNumber from "bignumber.js";
 
-import { InputNumberFormat, TextArea, InputTextWithIcon, InputText } from "src/components/common/form-controls";
+import {InputNumberFormat, TextArea, InputTextWithIcon, InputText} from "src/components/common/form-controls";
 // import { myKeystation } from "src/lib/Keystation";
-import styles from "./Register.scss";
+import styles from "./Register.module.scss";
 
 const cx = cn.bind(styles);
 
@@ -25,17 +25,17 @@ const validationSchemaForm = yup.object().shape({
 	minSelfDelegation: yup.number().required("Min Self Delegation is Required"),
 });
 
-export default function ({ address, account }) {
-	const { data } = bech32.decode(address);
+export default function({address, account}) {
+	const {data} = bech32.decode(address);
 	const validatorAddress = bech32.encode("oraivaloper", data);
 	const methods = useForm({
 		resolver: yupResolver(validationSchemaForm),
 	});
 
-	const { handleSubmit, errors, register, setValue, getValues } = methods;
+	const {handleSubmit, errors, register, setValue, getValues} = methods;
 
 	const onSubmit = data => {
-		const { maxChangeRate, maxRate, commissionRate, name, details, identity, securityContact, website, minSelfDelegation, delegationAmount, pubkey } = data;
+		const {maxChangeRate, maxRate, commissionRate, name, details, identity, securityContact, website, minSelfDelegation, delegationAmount, pubkey} = data;
 
 		// const payload = {
 		// 	type: "/cosmos.staking.v1beta1.MsgCreateValidator",

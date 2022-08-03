@@ -7,10 +7,10 @@ import classNames from "classnames/bind";
 import PropTypes from "prop-types";
 import axios from "axios";
 import {_, stringNumCheck} from "src/lib/scripts";
-import styles from "./SmartSearchBox.scss";
 import failIcon from "src/assets/transactions/fail_ic.svg";
 import consts from "src/constants/consts";
 import {useTheme} from "@material-ui/styles";
+import styles from "./SmartSearchBox.module.scss";
 
 const cx = classNames.bind(styles);
 

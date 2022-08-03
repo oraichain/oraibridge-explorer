@@ -5,8 +5,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import cn from "classnames/bind";
 import consts from "src/constants/consts";
-import styles from "./ShowExample.scss";
 import TXTIcon from "src/icons/TXTIcon";
+import styles from "./ShowExample.module.scss";
 
 const cx = cn.bind(styles);
 

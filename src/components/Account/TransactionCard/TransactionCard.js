@@ -1,8 +1,8 @@
-import React, { memo, useState, useRef } from "react";
-import { useGet } from "restful-react";
-import { useTheme } from "@material-ui/core/styles";
+import React, {memo, useState, useRef} from "react";
+import {useGet} from "restful-react";
+import {useTheme} from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
 import classNames from "classnames/bind";
 import consts from "src/constants/consts";
@@ -12,11 +12,11 @@ import TransactionCardList from "src/components/TxList/TransactionCardList";
 import TransactionCardListSkeleton from "src/components/TxList/TransactionCardList/TransactionCardListSkeleton";
 import Pagination from "src/components/common/Pagination";
 import NoResult from "src/components/common/NoResult";
-import styles from "./TransactionCard.scss";
+import styles from "./TransactionCard.module.scss";
 
 const cx = classNames.bind(styles);
 
-const TransactionCard = memo(({ account = "", royalty = false }) => {
+const TransactionCard = memo(({account = "", royalty = false}) => {
 	const theme = useTheme();
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 	const [status, setStatus] = useState("PROPOSAL_STATUS_ALL");
@@ -30,7 +30,7 @@ const TransactionCard = memo(({ account = "", royalty = false }) => {
 	let basePath = `${consts.API.TXS_ACCOUNT}/${account}?limit=${consts.REQUEST.LIMIT}`;
 
 	const path = `${basePath}&page_id=${pageId}`;
-	const { data, loading, error } = useGet({
+	const {data, loading, error} = useGet({
 		path: path,
 	});
 

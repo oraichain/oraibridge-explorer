@@ -10,7 +10,7 @@ import WithdrawTable from "src/components/Wallet/DelegatedValidator/DelegatedWit
 import WithdrawTableSkeleton from "src/components/Wallet/DelegatedValidator/DelegatedWithdraw/WithdrawTable/WithdrawTableSkeleton";
 import WithdrawCardList from "src/components/Wallet/DelegatedValidator/DelegatedWithdraw/WithdrawCardList/WithdrawCardList";
 import WithdrawCardListSkeleton from "src/components/Wallet/DelegatedValidator/DelegatedWithdraw/WithdrawCardList/WithdrawCardListSkeleton";
-import styles from "./DelegatedWithdraw.scss";
+import styles from "./DelegatedWithdraw.module.scss";
 import arrowIcon from "src/assets/wallet/arrow.svg";
 
 const cx = cn.bind(styles);
