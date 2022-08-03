@@ -16,7 +16,7 @@ import TransactionTable from "src/components/ProposalDetails/TransactionTable";
 import TransactionTableSkeleton from "src/components/ProposalDetails/TransactionTable/TransactionTableSkeleton";
 import TransactionCardList from "src/components/ProposalDetails/TransactionCardList";
 import TransactionCardListSkeleton from "src/components/ProposalDetails/TransactionCardList/TransactionCardListSkeleton";
-import styles from "./TransactionsCard.scss";
+import styles from "./TransactionsCard.module.scss";
 
 const cx = classNames.bind(styles);
 

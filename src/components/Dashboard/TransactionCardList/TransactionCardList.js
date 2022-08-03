@@ -1,14 +1,14 @@
 // @ts-nocheck
-import React, { memo } from "react";
-import { NavLink } from "react-router-dom";
+import React, {memo} from "react";
+import {NavLink} from "react-router-dom";
 import classNames from "classnames/bind";
 import consts from "src/constants/consts";
-import { _, reduceString, setAgoTime } from "src/lib/scripts";
-import styles from "./TransactionCardList.scss";
-import { useSelector } from "react-redux";
-import { getTxTypeNew } from "src/helpers/helper";
+import {_, reduceString, setAgoTime} from "src/lib/scripts";
+import {useSelector} from "react-redux";
+import {getTxTypeNew} from "src/helpers/helper";
+import styles from "./TransactionCardList.module.scss";
 
-const TransactionCardList = memo(({ data = [], account }) => {
+const TransactionCardList = memo(({data = [], account}) => {
 	const cx = classNames.bind(styles);
 	const status = useSelector(state => state.blockchain.status);
 

@@ -11,14 +11,14 @@ import {ThemeSetup} from "src/helpers/helper";
 import OraiBridgeIcon from "src/icons/OraiBridgeIcon.svg";
 import OraiBridgeIconDark from "src/icons/OraiBridgeIconDark.svg";
 import consts from "src/constants/consts";
-import styles from "./PriceDisplay.scss";
 import OraiIcon from "src/icons/OraiIcon";
+import styles from "./PriceDisplay.module.scss";
 
 const cx = cn.bind(styles);
 
 export default function() {
 	const status = useSelector(state => state.blockchain.status);
-	const { isDarkTheme } = ThemeSetup();
+	const {isDarkTheme} = ThemeSetup();
 	// React.useEffect(() => {
 	// 	const cancelToken = axios.CancelToken;
 	// 	const source = cancelToken.source();

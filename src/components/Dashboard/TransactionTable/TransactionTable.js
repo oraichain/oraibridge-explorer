@@ -1,15 +1,15 @@
 // @ts-nocheck
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { memo, useMemo } from "react";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import React, {memo, useMemo} from "react";
+import {useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
 import classNames from "classnames/bind";
 import consts from "src/constants/consts";
-import { _, reduceString, setAgoTime } from "src/lib/scripts";
-import { tableThemes } from "src/constants/tableThemes";
+import {_, reduceString, setAgoTime} from "src/lib/scripts";
+import {tableThemes} from "src/constants/tableThemes";
 import ThemedTable from "src/components/common/ThemedTable";
-import styles from "./TransactionTable.scss";
-import { getTxTypeNew } from "src/helpers/helper";
+import {getTxTypeNew} from "src/helpers/helper";
+import styles from "./TransactionTable.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -20,10 +20,10 @@ export const getHeaderRow = () => {
 	const timeHeaderCell = <div className={cx("header-cell", "align-right")}>Time</div>;
 	const headerCells = [txHashHeaderCell, typeHeaderCell, heightHeaderCell, timeHeaderCell];
 	const headerCellStyles = [
-		{ width: "auto" }, // TxHash
-		{ width: "auto" }, // Type
-		{ width: "auto" }, // Height
-		{ width: "auto" }, // Time
+		{width: "auto"}, // TxHash
+		{width: "auto"}, // Type
+		{width: "auto"}, // Height
+		{width: "auto"}, // Time
 	];
 	return {
 		headerCells,
@@ -31,7 +31,7 @@ export const getHeaderRow = () => {
 	};
 };
 
-const TransactionTable = memo(({ data = [], rowMotions = [], account }) => {
+const TransactionTable = memo(({data = [], rowMotions = [], account}) => {
 	const status = useSelector(state => state.blockchain.status);
 	const getDataRows = data => {
 		if (!Array.isArray(data)) {

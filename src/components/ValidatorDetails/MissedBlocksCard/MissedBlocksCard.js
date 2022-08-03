@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 import consts from "src/constants/consts";
 import BlockMatrix from "src/components/ValidatorDetails/BlockMatrix/BlockMatrix";
 import BlockMatrixSkeleton from "src/components/ValidatorDetails/BlockMatrix/BlockMatrixSkeleton";
-import styles from "./MissedBlocksCard.scss";
+import styles from "./MissedBlocksCard.module.scss";
 import BlockTimeIcon from "src/icons/Validators/TotalBlocksIcon";
 
 const cx = classNames.bind(styles);

@@ -3,8 +3,8 @@ import {Switch, Input, InputNumber} from "antd";
 import InputRange from "react-input-range";
 import cn from "classnames/bind";
 
+import styles from "./Gas.module.scss";
 import "./Gas.css";
-import styles from "./Gas.scss";
 
 const cx = cn.bind(styles);
 

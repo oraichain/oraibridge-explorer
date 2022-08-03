@@ -1,13 +1,13 @@
 // @ts-nocheck
-import React, { memo } from "react";
+import React, {memo} from "react";
 import Grid from "@material-ui/core/Grid";
 import classNames from "classnames/bind";
 import DonutChart from "react-donut-chart";
-import styles from "./CoinsCard.scss";
-import { themeIds } from "src/constants/themes";
-import { useSelector } from "react-redux";
+import {themeIds} from "src/constants/themes";
+import {useSelector} from "react-redux";
+import styles from "./CoinsCard.module.scss";
 
-const EmptyCoinsCard = memo(({ denom }) => {
+const EmptyCoinsCard = memo(({denom}) => {
 	const cx = classNames.bind(styles);
 	const activeThemeId = useSelector(state => state.activeThemeId);
 	const colors = {
@@ -43,10 +43,10 @@ const EmptyCoinsCard = memo(({ denom }) => {
 							innerRadius={0.5}
 							legend={false}
 							data={[
-								{ value: 0, label: "" },
-								{ value: 0, label: "" },
-								{ value: 0, label: "" },
-								{ value: 0, label: "" },
+								{value: 0, label: ""},
+								{value: 0, label: ""},
+								{value: 0, label: ""},
+								{value: 0, label: ""},
 							]}
 							colors={[colors.AVAILABLE, colors.DELEGATED, colors.UNBONDING, colors.REWARD]}
 							strokeColor={false}
@@ -56,7 +56,7 @@ const EmptyCoinsCard = memo(({ denom }) => {
 						<div className={cx("chart-comments")}>
 							<div className={cx("chart-comment-group")}>
 								<div className={cx("chart-comment")}>
-									<div className={cx("chart-comment-icon")} style={{ backgroundColor: colors.AVAILABLE }}></div>
+									<div className={cx("chart-comment-icon")} style={{backgroundColor: colors.AVAILABLE}}></div>
 									<div className={cx("chart-comment-info")}>
 										<div className={cx("chart-comment-label")}>Available</div>
 										<div className={cx("chart-comment-value")}>-%</div>
@@ -64,7 +64,7 @@ const EmptyCoinsCard = memo(({ denom }) => {
 								</div>
 
 								<div className={cx("chart-comment")}>
-									<div className={cx("chart-comment-icon")} style={{ backgroundColor: colors.DELEGATED }}></div>
+									<div className={cx("chart-comment-icon")} style={{backgroundColor: colors.DELEGATED}}></div>
 									<div className={cx("chart-comment-info")}>
 										<div className={cx("chart-comment-label")}>Delegated</div>
 										<div className={cx("chart-comment-value")}>-%</div>
@@ -74,14 +74,14 @@ const EmptyCoinsCard = memo(({ denom }) => {
 
 							<div className={cx("chart-comment-group")}>
 								<div className={cx("chart-comment")}>
-									<div className={cx("chart-comment-icon")} style={{ backgroundColor: colors.UNBONDING }}></div>
+									<div className={cx("chart-comment-icon")} style={{backgroundColor: colors.UNBONDING}}></div>
 									<div className={cx("chart-comment-info")}>
 										<div className={cx("chart-comment-label")}>Unbonding</div>
 										<div className={cx("chart-comment-value")}>-%</div>
 									</div>
 								</div>
 								<div className={cx("chart-comment")}>
-									<div className={cx("chart-comment-icon")} style={{ backgroundColor: colors.REWARD }}></div>
+									<div className={cx("chart-comment-icon")} style={{backgroundColor: colors.REWARD}}></div>
 									<div className={cx("chart-comment-info")}>
 										<div className={cx("chart-comment-label")}>Reward</div>
 										<div className={cx("chart-comment-value")}>-%</div>

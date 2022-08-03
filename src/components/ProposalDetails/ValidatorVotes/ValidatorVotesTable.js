@@ -1,11 +1,11 @@
-import React, { memo, useEffect, useMemo } from "react";
+import React, {memo, useEffect, useMemo} from "react";
 import classNames from "classnames/bind";
-import { tableThemes } from "src/constants/tableThemes";
+import {tableThemes} from "src/constants/tableThemes";
 import ThemedTable from "src/components/common/ThemedTable";
-import styles from "./ValidatorVotes.scss";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import consts from "src/constants/consts";
-import { reduceString, setAgoTime } from "src/lib/scripts";
+import {reduceString, setAgoTime} from "src/lib/scripts";
+import styles from "./ValidatorVotes.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -17,11 +17,11 @@ export const getHeaderRow = () => {
 	const timeHeaderCell = <div className={cx("header-cell", "align-right")}>Time</div>;
 	const headerCells = [rankHeaderCell, validatorHeaderCell, txHashHeaderCell, answerHeaderCell, timeHeaderCell];
 	const headerCellStyles = [
-		{ width: "4%", minWidth: "100px" },
-		{ width: "24%", minWidth: "240px" },
-		{ width: "20%", minWidth: "140px" },
-		{ width: "14%", minWidth: "100px" },
-		{ width: "18%", minWidth: "100px" },
+		{width: "4%", minWidth: "100px"},
+		{width: "24%", minWidth: "240px"},
+		{width: "20%", minWidth: "140px"},
+		{width: "14%", minWidth: "100px"},
+		{width: "18%", minWidth: "100px"},
 	];
 	return {
 		headerCells,
@@ -29,7 +29,7 @@ export const getHeaderRow = () => {
 	};
 };
 
-const ValidatorVotesTable = memo(({ data = [], converVoteTypes }) => {
+const ValidatorVotesTable = memo(({data = [], converVoteTypes}) => {
 	const convertOptionType = type => {
 		const labelArr = converVoteTypes(type);
 		const text = labelArr[labelArr.length - 1];
@@ -41,9 +41,11 @@ const ValidatorVotesTable = memo(({ data = [], converVoteTypes }) => {
 			return [];
 		}
 		return data.map((item, index) => {
-			const rankDataCell = <div className={cx("rank")}>
-				<span className={cx("rank-content")}>{item?.rank || "-"}</span>
-			</div>
+			const rankDataCell = (
+				<div className={cx("rank")}>
+					<span className={cx("rank-content")}>{item?.rank || "-"}</span>
+				</div>
+			);
 			const validatorDataCell = (
 				<div className={cx("align-left")}>
 					<NavLink className={cx("tx-hash-data-cell", "align-left")} to={`${consts.PATH.VALIDATORS}/${item?.operator_address}`}>
@@ -78,7 +80,7 @@ const ValidatorVotesTable = memo(({ data = [], converVoteTypes }) => {
 			headerCellStyles={headerRow.headerCellStyles}
 			headerCells={headerRow.headerCells}
 			dataRows={dataRows}
-		// rowMotions={rowMotions}
+			// rowMotions={rowMotions}
 		/>
 	);
 });

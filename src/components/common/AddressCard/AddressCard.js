@@ -5,8 +5,8 @@ import classNames from "classnames/bind";
 
 import Address from "src/components/common/Address";
 import QRCode from "src/components/common/QRCode";
-import styles from "./AddressCard.scss";
 import {isNil} from "lodash";
+import styles from "./AddressCard.module.scss";
 
 const BG_COLOR = "#FFFFFF";
 const FG_COLOR = "#1B57F0";

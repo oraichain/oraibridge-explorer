@@ -5,7 +5,7 @@ import consts from "src/constants/consts";
 import {_, reduceString} from "src/lib/scripts";
 import {tableThemes} from "src/constants/tableThemes";
 import ThemedTable from "src/components/common/ThemedTable";
-import styles from "./DelegatorsTable.scss";
+import styles from "./DelegatorsTable.module.scss";
 import {formatOrai} from "src/helpers/helper";
 
 const cx = classNames.bind(styles);

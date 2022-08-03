@@ -16,8 +16,8 @@ import TransactionTable from "src/components/ProposalDetails/TransactionTable";
 import TransactionTableSkeleton from "src/components/ProposalDetails/TransactionTable/TransactionTableSkeleton";
 import TransactionCardList from "src/components/ProposalDetails/TransactionCardList";
 import TransactionCardListSkeleton from "src/components/ProposalDetails/TransactionCardList/TransactionCardListSkeleton";
-import styles from "./ValidatorVotes.scss";
 import ValidatorVotesTable from "./ValidatorVotesTable";
+import styles from "./ValidatorVotes.module.scss";
 
 const cx = classNames.bind(styles);
 const pageSize = 10;
@@ -159,16 +159,16 @@ const ValidatorVotes = memo(({proposalId}) => {
 				ABSTAIN: [],
 				NO_WITH_VETO: [],
 				DID_NOT_VOTE: [],
-				ALL: validatorVoteData?.length || 0
+				ALL: validatorVoteData?.length || 0,
 			};
 
 			validatorVoteData.map(val => {
 				switch (val?.option) {
 					case "VOTE_OPTION_YES":
-						return totalVotes = {
+						return (totalVotes = {
 							...totalVotes,
 							YES: [...totalVotes.YES, val.option],
-						}
+						});
 					case "VOTE_OPTION_NO":
 						return (totalVotes = {
 							...totalVotes,
@@ -190,21 +190,21 @@ const ValidatorVotes = memo(({proposalId}) => {
 							DID_NOT_VOTE: [...totalVotes["DID_NOT_VOTE"], val.option],
 						});
 					default:
-						return totalVotes = {
+						return (totalVotes = {
 							...totalVotes,
 							ALL: validatorVoteData?.length,
-						};
+						});
 				}
 			});
-			const { YES, NO, ABSTAIN, NO_WITH_VETO, DID_NOT_VOTE, ALL } = totalVotes;
+			const {YES, NO, ABSTAIN, NO_WITH_VETO, DID_NOT_VOTE, ALL} = totalVotes;
 			const numberVotes = {
 				YES: YES.length,
 				NO: NO.length,
 				ABSTAIN: ABSTAIN.length,
 				"NO WITH VETO": NO_WITH_VETO.length,
 				"DID NOT VOTE": DID_NOT_VOTE.length,
-				ALL
-			}
+				ALL,
+			};
 			totalTxsRef.current = numberVotes;
 		}
 	}, [validatorVoteData]);
