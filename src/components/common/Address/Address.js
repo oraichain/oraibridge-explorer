@@ -1,19 +1,19 @@
-import React, { memo } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, {memo} from "react";
+import {NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import cn from "classnames/bind";
 import copy from "copy-to-clipboard";
 import consts from "src/constants/consts";
-import { showAlert } from "src/store/modules/global";
-import { _ } from "src/lib/scripts";
-import styles from "./Address.scss";
+import {showAlert} from "src/store/modules/global";
+import {_} from "src/lib/scripts";
 import copyIcon from "src/assets/common/copy_ic.svg";
-import { Tooltip } from "@material-ui/core";
+import {Tooltip} from "@material-ui/core";
+import styles from "./Address.module.scss";
 import "./Address.css";
 
 const cx = cn.bind(styles);
 
-const Address = memo(({ address, showCopyIcon = true, size = "lg", name = null, isSmartContract = false }) => {
+const Address = memo(({address, showCopyIcon = true, size = "lg", name = null, isSmartContract = false}) => {
 	const dispatch = useDispatch();
 	const checkPrefix = address => {
 		let prefixs = [];

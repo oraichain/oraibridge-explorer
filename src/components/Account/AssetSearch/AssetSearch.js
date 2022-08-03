@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { memo, useState, useEffect, useRef } from "react";
+import React, {memo, useState, useEffect, useRef} from "react";
 import cn from "classnames/bind";
-import styles from "./AssetSearch.scss";
 import _ from "lodash";
 import DownAngleIcon from "src/icons/DownAngleIcon";
 import {assetsNetworks} from "src/constants/ibc";
+import styles from "./AssetSearch.module.scss";
+
 const cx = cn.bind(styles);
 
-export default function ({ assetSearch, setAssetSearch }) {
+export default function({assetSearch, setAssetSearch}) {
 	const selectedItemRef = useRef(null);
 	const listRef = useRef(null);
 	const showList = () => {
@@ -51,12 +52,9 @@ export default function ({ assetSearch, setAssetSearch }) {
 		};
 	}, []);
 
-
 	return (
 		<div className={cx("assets__search")}>
-			<div className={cx("assets__title")}>
-				Assets
-			</div>
+			<div className={cx("assets__title")}>Assets</div>
 			<div className={cx("assets__form")}>
 				<div className={cx("network-switcher")}>
 					{/* <div className={cx("selected-item")}>
@@ -75,7 +73,6 @@ export default function ({ assetSearch, setAssetSearch }) {
 					</div>
 				</div>
 			</div>
-
 		</div>
 	);
 }

@@ -1,26 +1,26 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useGet } from "restful-react";
-import { useSelector } from "react-redux";
+import React, {useState, useRef, useEffect} from "react";
+import {useGet} from "restful-react";
+import {useSelector} from "react-redux";
 import cn from "classnames/bind";
-import { useTheme } from "@material-ui/core/styles";
-import { useHistory } from "react-router-dom";
+import {useTheme} from "@material-ui/core/styles";
+import {useHistory} from "react-router-dom";
 import queryString from "query-string";
-import { useForm, Controller } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import { Editor } from "react-draft-wysiwyg";
+import {useForm, Controller} from "react-hook-form";
+import {ErrorMessage} from "@hookform/error-message";
+import {Editor} from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 import * as bech32 from "bech32-buffer";
 import * as yup from "yup";
 import _ from "lodash";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Container from "@material-ui/core/Container";
 import Dialog from "@material-ui/core/Dialog";
-import { isNil } from "lodash-es";
-import { formatFloat } from "src/helpers/helper";
+import {isNil} from "lodash-es";
+import {formatFloat} from "src/helpers/helper";
 import consts from "src/constants/consts";
-import { logoBrand } from "src/constants/logoBrand";
+import {logoBrand} from "src/constants/logoBrand";
 import TitleWrapper from "src/components/common/TitleWrapper";
 import PageTitle from "src/components/common/PageTitle";
 import StatusBox from "src/components/common/StatusBox";
@@ -29,7 +29,7 @@ import FilterSection from "src/components/common/FilterSection";
 import FilterSectionSkeleton from "src/components/common/FilterSection/FilterSectionSkeleton";
 import NoResult from "src/components/common/NoResult";
 import Pagination from "src/components/common/Pagination";
-import { Fee, Gas } from "src/components/common/Fee";
+import {Fee, Gas} from "src/components/common/Fee";
 import TopProposalCardList from "src/components/Proposals/TopProposalCardList";
 import TopProposalCardListSkeleton from "src/components/Proposals/TopProposalCardList/TopProposalCardListSkeleton";
 import ProposalsTable from "src/components/Proposals/ProposalsTable/ProposalsTable";
@@ -38,12 +38,12 @@ import ProposalCardList from "src/components/Proposals/ProposalCardList/Proposal
 import ProposalCardListSkeleton from "src/components/Proposals/ProposalCardList/ProposalCardListSkeleton";
 import SelectBox from "src/components/common/SelectBox";
 import AddIcon from "src/icons/AddIcon";
-import styles from "./Proposals.scss";
-import { ReactComponent as CloseIcon } from "src/assets/icons/close.svg";
+import styles from "./Proposals.module.scss";
+import {ReactComponent as CloseIcon} from "src/assets/icons/close.svg";
 
 const cx = cn.bind(styles);
 
-export default function (props) {
+export default function(props) {
 	const theme = useTheme();
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 	const [status, setStatus] = useState("PROPOSAL_STATUS_ALL");
@@ -63,7 +63,7 @@ export default function (props) {
 	const [fieldValue, setFieldValue] = useState("UNBONDING_TIME");
 
 	const minFee = useSelector(state => state.blockchain.minFee);
-	const { address, account } = useSelector(state => state.wallet);
+	const {address, account} = useSelector(state => state.wallet);
 	const [gas, setGas] = useState(200000);
 	const [fee, setFee] = useState(0);
 
@@ -89,8 +89,8 @@ export default function (props) {
 		handleSubmit,
 		register,
 		control,
-		formState: { errors },
-	} = useForm({ defaultValues, resolver: yupResolver(schema) });
+		formState: {errors},
+	} = useForm({defaultValues, resolver: yupResolver(schema)});
 
 	const [open, setOpen] = useState(false);
 
@@ -111,12 +111,12 @@ export default function (props) {
 	};
 
 	const topPath = `${consts.API.PROPOSALS}?status${!isNil(type) ? "&type=" + type : ""}&limit=3&page_id=${topPageId}`;
-	const { data: topData, loading: topLoading, error: topError } = useGet({
+	const {data: topData, loading: topLoading, error: topError} = useGet({
 		path: topPath,
 	});
 
 	const statusPath = consts.API.PROPOSAL_STATUS;
-	const { data: statusData, loading: statusLoading, error: statusError } = useGet({
+	const {data: statusData, loading: statusLoading, error: statusError} = useGet({
 		path: statusPath,
 	});
 
@@ -127,7 +127,7 @@ export default function (props) {
 	} else {
 		path = `${basePath}&status=${status}&page_id=${pageId}`;
 	}
-	const { data, loading, error } = useGet({
+	const {data, loading, error} = useGet({
 		path: path,
 	});
 
@@ -185,9 +185,7 @@ export default function (props) {
 		// 		},
 		// 	},
 		// ];
-
 		// const minGasFee = (fee * 1000000 + "").split(".")[0];
-
 		// const payload = {
 		// 	type: "/cosmos.params.v1beta1.ParameterChangeProposal",
 		// 	value: {
@@ -200,7 +198,6 @@ export default function (props) {
 		// 		memo: "",
 		// 	},
 		// };
-
 		// const popup = myKeystation.openWindow("transaction", payload, account);
 		// let popupTick = setInterval(function() {
 		// 	if (popup.closed) {
@@ -338,7 +335,7 @@ export default function (props) {
 										Title
 									</label>
 									<input type='text' className={cx("text-field")} name='title' ref={register} />
-									<ErrorMessage errors={errors} name='title' render={({ message }) => <p className={cx("error-message")}>{message}</p>} />
+									<ErrorMessage errors={errors} name='title' render={({message}) => <p className={cx("error-message")}>{message}</p>} />
 								</div>
 
 								<div className={cx("field")}>
@@ -361,7 +358,7 @@ export default function (props) {
 											)}
 										/>
 									</div>
-									<ErrorMessage errors={errors} name='description' render={({ message }) => <p className={cx("error-message")}>{message}</p>} />
+									<ErrorMessage errors={errors} name='description' render={({message}) => <p className={cx("error-message")}>{message}</p>} />
 								</div>
 
 								<div className={cx("field")}>
@@ -369,7 +366,7 @@ export default function (props) {
 										Unbonding time
 									</label>
 									<input type='number' className={cx("text-field")} name='unbondingTime' ref={register} />
-									<ErrorMessage errors={errors} name='unbondingTime' render={({ message }) => <p className={cx("error-message")}>{message}</p>} />
+									<ErrorMessage errors={errors} name='unbondingTime' render={({message}) => <p className={cx("error-message")}>{message}</p>} />
 								</div>
 
 								<div className={cx("field")}>
@@ -377,7 +374,7 @@ export default function (props) {
 										Amount
 									</label>
 									<input type='number' className={cx("text-field")} name='amount' ref={register} />
-									<ErrorMessage errors={errors} name='amount' render={({ message }) => <p className={cx("error-message")}>{message}</p>} />
+									<ErrorMessage errors={errors} name='amount' render={({message}) => <p className={cx("error-message")}>{message}</p>} />
 								</div>
 							</>
 						)}

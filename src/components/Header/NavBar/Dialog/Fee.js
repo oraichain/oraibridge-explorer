@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import cn from "classnames/bind";
-import styles from "./Fee.scss";
+import styles from "./Fee.module.scss";
 
 const cx = cn.bind(styles);
 

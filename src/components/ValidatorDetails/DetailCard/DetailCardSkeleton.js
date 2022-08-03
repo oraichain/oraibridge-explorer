@@ -1,10 +1,10 @@
-import React, { memo } from "react";
+import React, {memo} from "react";
 import classNames from "classnames/bind";
-import { useTheme } from "@material-ui/core/styles";
+import {useTheme} from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Grid from "@material-ui/core/Grid";
-import styles from "./DetailCard.scss";
+import styles from "./DetailCard.module.scss";
 
 const cx = classNames.bind(styles);
 

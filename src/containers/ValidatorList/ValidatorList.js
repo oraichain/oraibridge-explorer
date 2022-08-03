@@ -20,7 +20,7 @@ import ValidatorTable from "src/components/ValidatorList/ValidatorTable";
 import ValidatorCardList from "src/components/ValidatorList/ValidatorCardList";
 import ValidatorTableSkeleton from "src/components/ValidatorList/ValidatorTable/ValidatorTableSkeleton";
 import ValidatorCardListSkeleton from "src/components/ValidatorList/ValidatorCardList/ValidatorCardListSkeleton";
-import styles from "./ValidatorList.scss";
+import styles from "./ValidatorList.module.scss";
 
 const cx = cn.bind(styles);
 

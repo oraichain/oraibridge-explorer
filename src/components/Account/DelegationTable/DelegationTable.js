@@ -6,7 +6,7 @@ import {formatOrai} from "src/helpers/helper";
 import {_, reduceString} from "src/lib/scripts";
 import {tableThemes} from "src/constants/tableThemes";
 import ThemedTable from "src/components/common/ThemedTable";
-import styles from "./DelegationTable.scss";
+import styles from "./DelegationTable.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -41,7 +41,7 @@ const DelegationTable = memo(({data = []}) => {
 					{reduceString(item.validator_address, 6, 6)}
 				</NavLink>
 			);
-			console.log({ item })
+			console.log({item});
 			const amountDataCell =
 				_.isNil(item?.amount) || _.isNil(item?.denom) ? (
 					<div className={cx("align-right")}>-</div>

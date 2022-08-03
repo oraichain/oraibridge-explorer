@@ -1,17 +1,17 @@
 // @ts-nocheck
-import React, { memo } from "react";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, {memo} from "react";
+import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
 import classNames from "classnames/bind";
 import PropTypes from "prop-types";
 import consts from "src/constants/consts";
-import { formatFloat, formatOrai } from "src/helpers/helper";
-import { _, reduceString, setAgoTime, parseIbcMsgTransfer, parseIbcMsgRecvPacket } from "src/lib/scripts";
+import {formatFloat, formatOrai} from "src/helpers/helper";
+import {_, reduceString, setAgoTime, parseIbcMsgTransfer, parseIbcMsgRecvPacket} from "src/lib/scripts";
 import CheckIcon from "src/icons/CheckIcon";
 import TimesIcon from "src/icons/TimesIcon";
 import RedoIcon from "src/icons/RedoIcon";
-import styles from "./TransactionCardList.scss";
-import { Tooltip } from "@material-ui/core";
+import {Tooltip} from "@material-ui/core";
+import styles from "./TransactionCardList.module.scss";
 
 const getTxTypeNew = (type, rawLog = "[]", result = "") => {
 	const typeArr = type.split(".");
@@ -19,7 +19,7 @@ const getTxTypeNew = (type, rawLog = "[]", result = "") => {
 	return typeMsg;
 };
 
-const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
+const TransactionCardList = memo(({data = [], account, royalty = false}) => {
 	const cx = classNames.bind(styles);
 	const status = useSelector(state => state.blockchain.status);
 
@@ -48,7 +48,7 @@ const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
 							</div>
 						</div>
 					) : (
-						<div className={cx("amount-data-cell", { "amount-data-cell-with-transfer-status": transferStatus })}>
+						<div className={cx("amount-data-cell", {"amount-data-cell-with-transfer-status": transferStatus})}>
 							{transferStatus && transferStatus}
 							<div className={cx("amount")}>
 								<span className={cx("amount-value")}>{formatOrai(amount)} </span>
@@ -70,9 +70,7 @@ const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
 					} else if (account === item.messages[0].to_address) {
 						transferStatus = <div className={cx("transfer-status", "transfer-status-in")}>IN</div>;
 					}
-				} else if (
-					account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgRecvPacket")
-				) {
+				} else if (account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgRecvPacket")) {
 					let message = item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgRecvPacket");
 					if (message?.packet?.data) {
 						const data = JSON.parse(atob(message?.packet?.data));
@@ -80,9 +78,7 @@ const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
 							transferStatus = <div className={cx("transfer-status", "transfer-status-out")}>IN</div>;
 						}
 					}
-				} else if (
-					account && (item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgTransfer"))
-				) {
+				} else if (account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgTransfer")) {
 					let message = item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgTransfer");
 					if (account === message.sender) {
 						transferStatus = <div className={cx("transfer-status", "transfer-status-out")}>OUT</div>;
@@ -114,9 +110,7 @@ const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
 				}
 
 				let ibcAmountDataCell = null;
-				if (
-					account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgRecvPacket")
-				) {
+				if (account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgRecvPacket")) {
 					let message = item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgRecvPacket");
 					if (message?.packet?.data) {
 						const msgRec = JSON.parse(atob(message?.packet?.data));
@@ -126,22 +120,22 @@ const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
 							<div className={cx("align-left")}>-</div>
 						) : (
 							<div className={cx("ibc-data-cell", "align-right")}>
-								<div className={cx("ibc-value")}>{formatOrai(msgRec?.amount, 1000000, 1) + ' ' + parseIbcMsgRecvPacket(msgRec?.denom)}</div>
-								<div className={cx("ibc-denom")}>{"(" + port + '/' + channel + '/' + msgRec?.denom + ")"}</div>
-							</div >
+								<div className={cx("ibc-value")}>{formatOrai(msgRec?.amount, 1000000, 1) + " " + parseIbcMsgRecvPacket(msgRec?.denom)}</div>
+								<div className={cx("ibc-denom")}>{"(" + port + "/" + channel + "/" + msgRec?.denom + ")"}</div>
+							</div>
 						);
 					}
-				} else if (
-					account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgTransfer")
-				) {
+				} else if (account && item?.messages?.find(msg => getTxTypeNew(msg["@type"]) === "MsgTransfer")) {
 					const rawLog = JSON.parse(item?.raw_log);
 					const rawLogParse = parseIbcMsgTransfer(rawLog);
-					const rawLogDenomSplit = rawLogParse?.denom?.split("/")
+					const rawLogDenomSplit = rawLogParse?.denom?.split("/");
 					ibcAmountDataCell = _.isNil(item?.raw_log) ? (
 						<div className={cx("align-left")}>-</div>
 					) : (
 						<div className={cx("ibc-data-cell", "align-right")}>
-							<div className={cx("ibc-value")}>{formatOrai(rawLogParse?.amount, 1000000, 1) + ' ' + parseIbcMsgRecvPacket(rawLogDenomSplit?.[rawLogDenomSplit.length - 1])}</div>
+							<div className={cx("ibc-value")}>
+								{formatOrai(rawLogParse?.amount, 1000000, 1) + " " + parseIbcMsgRecvPacket(rawLogDenomSplit?.[rawLogDenomSplit.length - 1])}
+							</div>
 							<div className={cx("ibc-denom")}>{"(" + parseIbcMsgTransfer(rawLog)?.denom + ")"}</div>
 						</div>
 					);
@@ -183,7 +177,6 @@ const TransactionCardList = memo(({ data = [], account, royalty = false }) => {
 										)}
 									</td>
 								</tr>
-
 
 								{/* <tr>
 									<td>

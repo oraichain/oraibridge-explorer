@@ -6,13 +6,13 @@ import Grid from "@material-ui/core/Grid";
 import Skeleton from "@material-ui/lab/Skeleton";
 import {formatInteger, formatSeconds, formatFloat} from "src/helpers/helper";
 import StatusCard from "src/components/common/StatusCard";
-import styles from "./StatusCardList.scss";
 
 import ValidatorsIcon from "src/icons/Validators/ValidatorsIcon";
 import HeightIcon from "src/icons/Validators/HeightIcon";
 import BondedTokensIcon from "src/icons/Validators/BondedTokensIcon";
 import BlockTimeIcon from "src/icons/Validators/BlockTimeIcon";
 import consts from "src/constants/consts";
+import styles from "./StatusCardList.module.scss";
 
 const cx = cn.bind(styles);
 

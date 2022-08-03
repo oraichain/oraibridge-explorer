@@ -1,6 +1,5 @@
 import React from "react";
 import cn from "classnames/bind";
-import styles from "./AssetTableRows.scss";
 //  hooks
 import {useHistory} from "src/hooks";
 //  components
@@ -13,6 +12,7 @@ import Skeleton from "react-skeleton-loader";
 import DisplayIcon from "src/components/common/DisplayIcon/DisplayIcon";
 //  assets
 import symbolNoneSVG from "src/assets/transactions/symbol_none.svg";
+import styles from "./AssetTableRows.module.scss";
 
 const cx = cn.bind(styles);
 

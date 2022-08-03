@@ -1,37 +1,37 @@
 // @ts-nocheck
-import React, { useState, useEffect, memo } from "react";
+import React, {useState, useEffect, memo} from "react";
 // import {useGet} from "restful-react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { useForm, FormProvider } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import {useForm, FormProvider} from "react-hook-form";
+import {useHistory} from "react-router-dom";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 import cn from "classnames/bind";
 import _ from "lodash";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import BigNumber from "bignumber.js";
 import LoadingOverlay from "src/components/common/LoadingOverlay";
-import { showAlert } from "src/store/modules/global";
+import {showAlert} from "src/store/modules/global";
 import SendOraiTab from "./SendOraiTab";
 import SendTrasactionTab from "./SendTrasactionTab";
-import { ReactComponent as CloseIcon } from "src/assets/icons/close.svg";
+import {ReactComponent as CloseIcon} from "src/assets/icons/close.svg";
 import config from "src/config";
-import styles from "./Dialog.scss";
-import "./Dialog.css";
 import consts from "src/constants/consts";
-import { useGet } from "restful-react";
+import {useGet} from "restful-react";
 import typeSend from "src/constants/typeSend";
-import { payloadTransaction, minusFees } from "src/helpers/transaction";
-import { args } from "src/helpers/transaction";
-import { walletStation } from "src/lib/walletStation";
+import {payloadTransaction, minusFees} from "src/helpers/transaction";
+import {args} from "src/helpers/transaction";
+import {walletStation} from "src/lib/walletStation";
+import styles from "./Dialog.module.scss";
+import "./Dialog.css";
 
 const cx = cn.bind(styles);
 
-yup.addMethod(yup.string, "lessThanNumber", function (amount) {
+yup.addMethod(yup.string, "lessThanNumber", function(amount) {
 	return this.test({
 		name: "test-name",
 		exclusive: false,
@@ -56,7 +56,7 @@ const TABS = [
 	},
 ];
 
-const FormDialog = memo(({ show, handleClose, address, account, amount }) => {
+const FormDialog = memo(({show, handleClose, address, account, amount}) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [activeTabId, setActiveTabId] = useState(1);
 	const [multiSendData, handleInputMulti] = useState(null);
@@ -88,9 +88,9 @@ const FormDialog = memo(({ show, handleClose, address, account, amount }) => {
 		resolver: yupResolver(activeTabId === 1 ? validationSchemaForm1 : validationSchemaForm2),
 	});
 
-	const { handleSubmit, errors, register, setValue, getValues, setError, watch, trigger } = methods;
+	const {handleSubmit, errors, register, setValue, getValues, setError, watch, trigger} = methods;
 	const handleBigNumber = (amount = "0") => new BigNumber(amount.toString().replaceAll(",", "")).multipliedBy(1000000).toString();
-	const onSubmit = async (data) => {
+	const onSubmit = async data => {
 		let payload;
 		let typeSendSubmit = typeSend.SEND;
 		let total_amount = 0;
@@ -132,7 +132,7 @@ const FormDialog = memo(({ show, handleClose, address, account, amount }) => {
 					},
 				];
 			}
-			payload = args({ msg, type: typeSendSubmit, fromAddress: address, toAddress: data?.recipientAddress, totalAmount: handleBigNumber(total_amount) }); // TODO: temp hardcode gas
+			payload = args({msg, type: typeSendSubmit, fromAddress: address, toAddress: data?.recipientAddress, totalAmount: handleBigNumber(total_amount)}); // TODO: temp hardcode gas
 		}
 		setTimeout(() => {
 			handleClose();
@@ -141,11 +141,10 @@ const FormDialog = memo(({ show, handleClose, address, account, amount }) => {
 		if (response.tx_response && response.tx_response.code === 0) {
 			history.push(`/txs/${response.tx_response.txhash}`);
 		}
-
 	};
 
 	useEffect(() => {
-		const callBack = function (e) {
+		const callBack = function(e) {
 			if (e && e.data === "deny") {
 				return handleClose();
 			}
@@ -200,10 +199,10 @@ const FormDialog = memo(({ show, handleClose, address, account, amount }) => {
 				</DialogTitle>
 				<DialogContent>
 					<div className={cx("tab-wrapper")}>
-						{TABS.map(({ id, name }, index) => {
+						{TABS.map(({id, name}, index) => {
 							return (
 								<button
-									className={cx({ selected: id === activeTabId })}
+									className={cx({selected: id === activeTabId})}
 									onClick={() => {
 										setFee(0);
 										setGas(200000);

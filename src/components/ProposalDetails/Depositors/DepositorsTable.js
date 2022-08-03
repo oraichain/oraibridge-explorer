@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom";
 import consts from "src/constants/consts";
 import {reduceString, setAgoTime} from "src/lib/scripts";
 import {formatOrai, formatFloat} from "src/helpers/helper";
-import styles from "./Depositors.scss";
+import styles from "./Depositors.module.scss";
 
 const cx = classNames.bind(styles);
 

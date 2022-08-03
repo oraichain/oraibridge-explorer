@@ -4,7 +4,6 @@ import classNames from "classnames/bind";
 import {useDispatch} from "react-redux";
 
 import {openPageBar} from "src/store/modules/global";
-import styles from "./TogglePageBar.scss";
 
 import {ReactComponent as TogglePageIcon} from "src/assets/icons/toggle-page.svg";
 import OracleScriptsTabIcon from "src/icons/Tabs/OracleScriptsTabIcon";
@@ -16,6 +15,7 @@ import TestCaseTabIcon from "src/icons/Tabs/TestCaseTabIcon";
 import RequestsTabIcon from "src/icons/Tabs/RequestsTabIcon";
 import TransactionsTabIcon from "src/icons/Tabs/TransactionsTabIcon";
 import ValidatorsIcon from "src/icons/Validators/ValidatorsIcon";
+import styles from "./TogglePageBar.module.scss";
 
 const cx = classNames.bind(styles);
 

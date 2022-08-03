@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import { useGet } from "restful-react";
+import React, {useEffect, useRef} from "react";
+import {useGet} from "restful-react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import cn from "classnames/bind";
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import copy from "copy-to-clipboard";
 import * as bech32 from "bech32-buffer";
-import { useTheme } from "@material-ui/core/styles";
-import { showAlert } from "src/store/modules/global";
+import {useTheme} from "@material-ui/core/styles";
+import {showAlert} from "src/store/modules/global";
 import consts from "src/constants/consts";
 import TitleWrapper from "src/components/common/TitleWrapper";
 import PageTitle from "src/components/common/PageTitle";
@@ -22,7 +22,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import UnbondingCard from "src/components/Account/UnbondingCard";
 import Tabs from "src/components/TxList/Tabs";
 import TransactionCard from "src/components/Account/TransactionCard";
-import styles from "./Account.scss";
+import styles from "./Account.module.scss";
 import copyIcon from "src/assets/common/copy_ic.svg";
 import NoResult from "src/components/common/NoResult";
 import AssetsTable from "src/components/Account/AssetsTable";
@@ -31,7 +31,7 @@ import Pagination from "src/components/common/Pagination";
 import AssetSearch from "src/components/Account/AssetSearch";
 import MobileSkeleton from "./MobileSkeleton/AccountMobileSkeleton";
 import AssetsTableSkeleton from "src/components/Account/AssetsTable/AssetsTableSkeleton";
-import { priceBalance } from "src/constants/priceBalance";
+import {priceBalance} from "src/constants/priceBalance";
 import * as api from "src/lib/api";
 
 const Account = props => {
@@ -50,13 +50,13 @@ const Account = props => {
 	const balancePath = `${consts.API.ACCOUNT_BALANCE}/${account}?${token_type}`;
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 	const totalPagesRef = useRef(null);
-	const { data: coinsData, loading: coinsLoading, error: coinsError } = useGet({
+	const {data: coinsData, loading: coinsLoading, error: coinsError} = useGet({
 		path: coinsPath,
 	});
-	const { data: balanceData, loading: balanceLoading, error: balanceError } = useGet({
+	const {data: balanceData, loading: balanceLoading, error: balanceError} = useGet({
 		path: balancePath,
 	});
-	const { data: nameTagData, loading: nameTagLoading, error: nameTagError } = useGet({
+	const {data: nameTagData, loading: nameTagLoading, error: nameTagError} = useGet({
 		path: nameTagPath,
 	});
 
@@ -94,7 +94,7 @@ const Account = props => {
 			title: "Address",
 			icon: copyIcon,
 			value: account,
-			onClick: function () {
+			onClick: function() {
 				handleCopy(this.value);
 			},
 		},
@@ -107,7 +107,7 @@ const Account = props => {
 		title: "Operator address",
 		icon: copyIcon,
 		value: operatorAddress,
-		onClick: function () {
+		onClick: function() {
 			handleCopy(this.value);
 		},
 	});

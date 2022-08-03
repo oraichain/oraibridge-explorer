@@ -1,25 +1,26 @@
-import React, { memo } from "react";
+import React, {memo} from "react";
 import classNames from "classnames/bind";
 import Address from "src/components/common/Address";
-import { logoBrand } from "src/constants/logoBrand";
-import styles from "./AddressCard.scss";
+import {logoBrand} from "src/constants/logoBrand";
 import aiIcon from "src/assets/common/ai_ic.svg";
-import { useGet } from "restful-react";
+import {useGet} from "restful-react";
 import checkIcon from "src/assets/validatorDetails/check.svg";
 import CheckIcon from "src/icons/Validators/CheckIcon";
-import Upload from 'rc-upload';
+import Upload from "rc-upload";
 import RejectedIcon from "src/icons/Proposals/RejectedIcon";
-import keccak256 from 'keccak256';
-import secp256k1 from 'secp256k1';
+import keccak256 from "keccak256";
+import secp256k1 from "secp256k1";
 import * as api from "src/lib/api";
-import { notification } from 'antd';
+import {notification} from "antd";
+import styles from "./AddressCard.module.scss";
+
 const cx = classNames.bind(styles);
 
-const AddressCard = memo(({ moniker, operatorAddress, address, isInactive }) => {
-	const [src, setSrc] = React.useState('');
+const AddressCard = memo(({moniker, operatorAddress, address, isInactive}) => {
+	const [src, setSrc] = React.useState("");
 	const logoItem = logoBrand.find(it => it.operatorAddress === operatorAddress);
-	const [dataDetails, setDataDetails] = React.useState({ image: '', nonce: 0 });
-	const [logoURL, setLogoURL] = React.useState('');
+	const [dataDetails, setDataDetails] = React.useState({image: "", nonce: 0});
+	const [logoURL, setLogoURL] = React.useState("");
 	// const logoURL = src ? src : dataDetails?.image ? dataDetails?.image : logoItem.logo ? logoItem.logo : "";
 	const logoName = moniker || "";
 
@@ -32,26 +33,26 @@ const AddressCard = memo(({ moniker, operatorAddress, address, isInactive }) => 
 		if (detail && detail.data && detail.data.image) {
 			setLogoURL(detail.data.image);
 		} else {
-			setLogoURL(logoItem?.logo ? logoItem.logo : "")
+			setLogoURL(logoItem?.logo ? logoItem.logo : "");
 		}
-		setDataDetails(detail?.data)
+		setDataDetails(detail?.data);
 	};
 
 	React.useEffect(() => {
-		if (src !== '') {
+		if (src !== "") {
 			fetchImages();
 		}
 	}, [src]);
 
 	const restrictFile = () => {
 		notification.info({
-			message: 'Upload Image Validator',
-			description: 'File type is not in the correct format',
+			message: "Upload Image Validator",
+			description: "File type is not in the correct format",
 		});
 		setTimeout(() => {
 			notification.destroy();
 		}, 5000);
-	}
+	};
 
 	// const props = {
 	// 	action: async (file) => {
@@ -140,10 +141,10 @@ const AddressCard = memo(({ moniker, operatorAddress, address, isInactive }) => 
 		<div className={cx("address-card")}>
 			<div className={cx("address-card-header")}>
 				<div className={cx("validator-account")}>
-					<Upload  >
-						<div className={cx("validator-account-images")} >
+					<Upload>
+						<div className={cx("validator-account-images")}>
 							{logoURL && <img alt='/' className={cx("validator-account-icon")} src={logoURL} />}
-							{!logoURL && <div className={cx("logo-custom")} > {logoName.substring(0, 3).toUpperCase()} </div>}
+							{!logoURL && <div className={cx("logo-custom")}> {logoName.substring(0, 3).toUpperCase()} </div>}
 						</div>
 					</Upload>
 					<span className={cx("validator-account-name")}>{moniker?.length > 22 ? moniker?.substring(0, 18) + "..." : moniker}</span>

@@ -1,10 +1,10 @@
-import React, { lazy, Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, {lazy, Suspense} from "react";
+import {Route, Switch} from "react-router-dom";
 import cn from "classnames/bind";
 import Loading from "src/components/common/Loading";
-import { usePreload } from "src/hooks";
+import {usePreload} from "src/hooks";
 import ScrollToTop from "./ScrollToTop";
-import styles from "./Router.scss";
+import styles from "./Router.module.scss";
 import config from "src/config.js";
 
 const cx = cn.bind(styles);
@@ -48,7 +48,7 @@ const RelayerDetail = lazy(() => import(`src/containers/RelayerDetail`));
 // const OracleAI = lazy(() => import(`src/containers/OracleAI`));
 // const WasmCodeDetail = lazy(() => import(`src/containers/WasmCode`));
 
-export default function (props) {
+export default function(props) {
 	//  preload stuff that needs preloading
 	usePreload();
 	return (

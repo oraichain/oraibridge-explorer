@@ -16,13 +16,13 @@ import TransactionTable from "src/components/ProposalDetails/TransactionTable";
 import TransactionTableSkeleton from "src/components/ProposalDetails/TransactionTable/TransactionTableSkeleton";
 import TransactionCardList from "src/components/ProposalDetails/TransactionCardList";
 import TransactionCardListSkeleton from "src/components/ProposalDetails/TransactionCardList/TransactionCardListSkeleton";
-import styles from "./Depositors.scss";
 import DepositorsTable from "./DepositorsTable";
 import DepositorsSkeleton from "./DepositorsSkeleton";
+import styles from "./Depositors.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Depositors = memo(({ proposalId }) => {
+const Depositors = memo(({proposalId}) => {
 	const theme = useTheme();
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 	const [pageId, setPageId] = useState(1);
@@ -49,17 +49,16 @@ const Depositors = memo(({ proposalId }) => {
 		titleSection = <></>;
 	}
 
-	if(!despositorLoading) {
-		if(despositorData?.depositors) {
-			totalPagesRef.current = despositorData?.page?.total_page
-			tableSection = <DepositorsTable data={despositorData?.depositors} />
-		}
-		else {
+	if (!despositorLoading) {
+		if (despositorData?.depositors) {
+			totalPagesRef.current = despositorData?.page?.total_page;
+			tableSection = <DepositorsTable data={despositorData?.depositors} />;
+		} else {
 			totalPagesRef.current = null;
-			tableSection = <NoResult />
+			tableSection = <NoResult />;
 		}
 	} else {
-		tableSection =  <TransactionTableSkeleton />
+		tableSection = <TransactionTableSkeleton />;
 	}
 
 	paginationSection = totalPagesRef.current ? <Pagination pages={totalPagesRef.current} page={pageId} onChange={(e, page) => onPageChange(page)} /> : <></>;
